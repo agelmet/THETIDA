@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thetida's Villa — Panoramic Village View | Apéri, Karpathos</title>
+<meta name="description" content="Μια παραδοσιακή βίλα στο αμφιθεατρικό Απέρι της Καρπάθου με πανοραμική θέα στο χωριό, τα βουνά και τη θάλασσα. Ιδιωτικό τζακούζι, πέτρινη αυλή, αυθεντική φιλοξενία.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&family=Dancing+Script:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal-deep:#1d5b6e;
+  --teal:#4a8a9a;
+  --teal-soft:#7fb0bc;
+  --ochre:#c79a1f;
+  --gold:#d9b740;
+  --sage:#b9bcae;
+  --sand:#e4d9b8;
+  --cream:#f6f1e6;
+  --cream-deep:#efe7d3;
+  --ink:#243033;
+  --ink-soft:#4a5a5e;
+  --white:#ffffff;
+  --shadow:rgba(29,91,110,.16);
+  --display:'Jost',sans-serif;
+  --serif:'Cormorant Garamond',serif;
+  --script:'Dancing Script',cursive;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--serif);
+  background:var(--cream);
+  color:var(--ink);
+  overflow-x:hidden;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+body.no-scroll{overflow:hidden}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+::selection{background:var(--teal);color:var(--cream)}
+
+/* ============ PRELOADER ============ */
+#preloader{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--cream);
+  display:flex;align-items:center;justify-content:center;flex-direction:column;
+  transition:opacity 1s ease,visibility 1s ease;
+}
+#preloader.done{opacity:0;visibility:hidden}
+.pre-window{
+  width:90px;height:108px;position:relative;
+}
+.pre-window svg{width:100%;height:100%;overflow:visible}
+.pre-arch{
+  fill:none;stroke:var(--teal);stroke-width:3;
+  stroke-dasharray:340;stroke-dashoffset:340;
+  animation:draw 1.6s ease forwards;
+}
+.pre-fill{opacity:0;animation:fadeFill 1s ease .9s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes fadeFill{to{opacity:1}}
+.pre-text{
+  font-family:var(--display);font-weight:300;
+  letter-spacing:.5em;font-size:.7rem;color:var(--teal-deep);
+  margin-top:26px;text-transform:uppercase;
+  opacity:0;animation:fadeUp 1s ease 1.2s forwards;padding-left:.5em;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* ============ NAV ============ */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  padding:26px clamp(20px,5vw,60px);
+  display:flex;align-items:center;justify-content:space-between;
+  transition:background .5s ease,padding .5s ease,box-shadow .5s ease;
+}
+header.scrolled{
+  background:rgba(246,241,230,.92);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  padding:14px clamp(20px,5vw,60px);
+  box-shadow:0 6px 30px rgba(29,91,110,.08);
+}
+.brand{display:flex;align-items:center;gap:13px;z-index:1001}
+.brand-mark{width:38px;height:46px;flex-shrink:0}
+.brand-mark svg{width:100%;height:100%}
+.brand-name{
+  font-family:var(--display);font-weight:300;
+  font-size:1.18rem;letter-spacing:.04em;color:var(--teal-deep);
+  line-height:1;transition:color .5s ease;
+}
+header:not(.scrolled) .brand-name{color:var(--cream)}
+header:not(.scrolled) .brand-stroke{stroke:var(--cream)}
+.brand-sub{
+  display:block;font-family:var(--script);font-size:.74rem;
+  color:var(--gold);letter-spacing:.02em;margin-top:1px;
+}
+nav.desktop{display:flex;align-items:center;gap:clamp(18px,2.4vw,36px)}
+nav.desktop a{
+  font-family:var(--display);font-weight:300;font-size:.82rem;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--cream);
+  position:relative;transition:color .4s ease;padding:4px 0;
+}
+header.scrolled nav.desktop a{color:var(--ink-soft)}
+nav.desktop a::after{
+  content:'';position:absolute;left:0;bottom:-2px;width:0;height:1px;
+  background:var(--gold);transition:width .4s ease;
+}
+nav.desktop a:hover{color:var(--gold)}
+nav.desktop a:hover::after{width:100%}
+
+.lang{display:flex;gap:6px;align-items:center;margin-left:8px}
+.lang button{
+  background:none;border:none;cursor:pointer;font-size:1.15rem;
+  opacity:.45;transition:opacity .3s ease,transform .3s ease;
+  line-height:1;padding:2px;filter:grayscale(.3);
+}
+.lang button:hover{transform:scale(1.18)}
+.lang button.active{opacity:1;filter:grayscale(0)}
+
+.nav-cta{
+  font-family:var(--display);font-weight:300;font-size:.78rem;
+  letter-spacing:.13em;text-transform:uppercase;
+  border:1px solid var(--gold);color:var(--gold)!important;
+  padding:9px 20px;border-radius:40px;transition:all .4s ease;margin-left:6px;
+}
+.nav-cta::after{display:none}
+.nav-cta:hover{background:var(--gold);color:var(--teal-deep)!important}
+
+/* burger */
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:1001;background:none;border:none;padding:6px}
+.burger span{width:26px;height:2px;background:var(--cream);transition:all .4s ease;display:block}
+header.scrolled .burger span{background:var(--teal-deep)}
+
+/* mobile menu */
+.mobile-menu{
+  position:fixed;inset:0;z-index:1000;
+  background:linear-gradient(160deg,var(--teal-deep),#0f3a47);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:22px;opacity:0;visibility:hidden;transition:opacity .5s ease,visibility .5s ease;
+}
+.mobile-menu.open{opacity:1;visibility:visible}
+.mobile-close{
+  position:absolute;top:26px;right:26px;width:46px;height:46px;
+  border:1px solid rgba(246,241,230,.4);border-radius:50%;
+  background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:all .4s ease;
+}
+.mobile-close:hover{background:rgba(246,241,230,.1);transform:rotate(90deg)}
+.mobile-close::before,.mobile-close::after{
+  content:'';position:absolute;width:20px;height:1.5px;background:var(--cream);
+}
+.mobile-close::before{transform:rotate(45deg)}
+.mobile-close::after{transform:rotate(-45deg)}
+.mobile-menu a{
+  font-family:var(--serif);font-weight:300;font-size:1.9rem;color:var(--cream);
+  letter-spacing:.02em;opacity:0;transform:translateY(20px);transition:all .5s ease;
+}
+.mobile-menu.open a{opacity:1;transform:translateY(0)}
+.mobile-menu.open a:nth-child(2){transition-delay:.1s}
+.mobile-menu.open a:nth-child(3){transition-delay:.16s}
+.mobile-menu.open a:nth-child(4){transition-delay:.22s}
+.mobile-menu.open a:nth-child(5){transition-delay:.28s}
+.mobile-menu.open a:nth-child(6){transition-delay:.34s}
+.mobile-menu a:hover{color:var(--gold)}
+.mobile-lang{display:flex;gap:18px;margin-top:14px;opacity:0;transition:all .5s ease .4s}
+.mobile-menu.open .mobile-lang{opacity:1}
+.mobile-lang button{background:none;border:none;font-size:1.7rem;cursor:pointer;opacity:.5;filter:grayscale(.3)}
+.mobile-lang button.active{opacity:1;filter:grayscale(0)}
+
+/* ============ HERO ============ */
+.hero{
+  position:relative;height:100vh;min-height:620px;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;z-index:1;
+  background-image:url('https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/unnamed-144.jpg');
+  background-size:cover;background-position:center;
+  transform:scale(1.12);
+  animation:heroZoom 14s ease-out forwards;
+  will-change:transform;
+}
+@keyframes heroZoom{to{transform:scale(1)}}
+.hero-bg::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(15,58,71,.5) 0%,rgba(15,58,71,.15) 40%,rgba(15,58,71,.55) 100%);
+}
+.hero-content{
+  position:relative;z-index:3;text-align:center;color:var(--cream);
+  padding:0 24px;max-width:920px;
+}
+.hero-eyebrow{
+  font-family:var(--display);font-weight:300;letter-spacing:.5em;
+  text-transform:uppercase;font-size:clamp(.62rem,1.6vw,.8rem);
+  margin-bottom:26px;padding-left:.5em;
+  opacity:0;animation:heroFade 1.2s ease 1.6s forwards;
+}
+.hero-eyebrow span{display:inline-block;color:var(--gold)}
+.hero h1{
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(3.2rem,11vw,8rem);line-height:.92;
+  letter-spacing:.01em;margin-bottom:8px;
+}
+.hero h1 .line{display:block;overflow:hidden}
+.hero h1 .line span{
+  display:inline-block;transform:translateY(110%);
+  animation:heroRise 1.3s cubic-bezier(.22,1,.36,1) forwards;
+}
+.hero h1 .line:nth-child(1) span{animation-delay:.5s}
+.hero h1 .line:nth-child(2) span{animation-delay:.72s}
+@keyframes heroRise{to{transform:translateY(0)}}
+.hero-script{
+  font-family:var(--script);font-size:clamp(1.5rem,4.5vw,2.6rem);
+  color:var(--gold);margin-top:6px;
+  opacity:0;animation:heroFade 1.4s ease 1.5s forwards;
+}
+.hero-loc{
+  font-family:var(--display);font-weight:300;letter-spacing:.32em;
+  text-transform:uppercase;font-size:clamp(.66rem,1.8vw,.82rem);
+  margin-top:26px;opacity:0;animation:heroFade 1.2s ease 1.9s forwards;padding-left:.32em;
+}
+.hero-loc::before,.hero-loc::after{
+  content:'';display:inline-block;width:30px;height:1px;
+  background:var(--gold);vertical-align:middle;margin:0 16px;
+}
+@keyframes heroFade{to{opacity:1}}
+.scroll-hint{
+  position:absolute;bottom:34px;left:50%;transform:translateX(-50%);z-index:3;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  opacity:0;animation:heroFade 1.2s ease 2.3s forwards;
+}
+.scroll-hint span{
+  font-family:var(--display);font-weight:300;font-size:.6rem;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--cream);
+}
+.scroll-line{width:1px;height:46px;background:linear-gradient(var(--gold),transparent);position:relative;overflow:hidden}
+.scroll-line::after{content:'';position:absolute;top:0;left:0;width:100%;height:40%;background:var(--cream);animation:scrollDrop 2s ease-in-out infinite}
+@keyframes scrollDrop{0%{top:-40%}100%{top:100%}}
+
+/* ============ MARQUEE STRIP ============ */
+.marquee{
+  background:var(--teal-deep);color:var(--cream);overflow:hidden;
+  padding:16px 0;white-space:nowrap;position:relative;
+}
+.marquee-track{display:inline-flex;animation:marquee 32s linear infinite}
+.marquee-track span{
+  font-family:var(--serif);font-style:italic;font-size:1.15rem;
+  padding:0 38px;display:inline-flex;align-items:center;gap:38px;color:var(--sand);
+}
+.marquee-track span::after{content:'✦';color:var(--gold);font-style:normal;font-size:.8rem}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+/* ============ SECTION SHELL ============ */
+section{position:relative}
+.wrap{max-width:1280px;margin:0 auto;padding:0 clamp(20px,5vw,60px)}
+.sec-pad{padding:clamp(80px,11vw,150px) 0}
+.eyebrow{
+  font-family:var(--display);font-weight:400;letter-spacing:.34em;
+  text-transform:uppercase;font-size:.74rem;color:var(--teal);
+  display:flex;align-items:center;gap:14px;margin-bottom:22px;
+}
+.eyebrow::before{content:'';width:34px;height:1px;background:var(--gold)}
+.eyebrow.center{justify-content:center}
+.sec-title{
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(2.2rem,5.5vw,4rem);line-height:1.04;
+  color:var(--teal-deep);letter-spacing:.005em;
+}
+.sec-title em{font-style:italic;color:var(--ochre)}
+.sec-title .scr{font-family:var(--script);color:var(--gold);font-size:1.15em;font-weight:500}
+.lead{
+  font-size:clamp(1.05rem,2vw,1.3rem);color:var(--ink-soft);
+  font-weight:300;max-width:60ch;
+}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(38px);transition:opacity 1.1s cubic-bezier(.22,1,.36,1),transform 1.1s cubic-bezier(.22,1,.36,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.12s}.reveal.d2{transition-delay:.24s}.reveal.d3{transition-delay:.36s}.reveal.d4{transition-delay:.48s}
+.reveal-img{clip-path:inset(0 0 100% 0);transition:clip-path 1.3s cubic-bezier(.22,1,.36,1)}
+.reveal-img.in{clip-path:inset(0 0 0 0)}
+
+/* ============ INTRO / ABOUT ============ */
+.intro{background:var(--cream);position:relative}
+.intro-grid{
+  display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(40px,6vw,90px);
+  align-items:center;
+}
+.intro-copy h2{margin-bottom:30px}
+.intro-copy p{margin-bottom:20px;color:var(--ink-soft);font-size:1.12rem;font-weight:300}
+.intro-copy p:first-of-type::first-letter{
+  font-family:var(--serif);font-size:3.4rem;float:left;line-height:.8;
+  padding:8px 12px 0 0;color:var(--ochre);font-weight:400;
+}
+.olive-note{
+  font-family:var(--script);font-size:1.5rem;color:var(--teal);
+  margin-top:14px;display:block;
+}
+.intro-visual{position:relative}
+.intro-frame{
+  position:relative;border-radius:0;overflow:hidden;
+  box-shadow:0 30px 70px rgba(29,91,110,.22);
+  aspect-ratio:3/4;
+}
+.intro-frame img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s ease}
+.intro-frame:hover img{transform:scale(1.06)}
+/* arched top */
+.intro-frame{border-top-left-radius:50% 22%;border-top-right-radius:50% 22%}
+.intro-badge{
+  position:absolute;bottom:-30px;left:-30px;width:150px;height:150px;
+  background:var(--teal-deep);border-radius:50%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  color:var(--cream);text-align:center;box-shadow:0 16px 40px rgba(29,91,110,.3);
+  animation:spinBadge 26s linear infinite;
+}
+.intro-badge .big{font-family:var(--serif);font-size:2.4rem;line-height:1;font-weight:300}
+.intro-badge .small{font-family:var(--display);font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;margin-top:6px;color:var(--gold)}
+@keyframes spinBadge{to{transform:rotate(0)}}
+
+/* ============ STATS ============ */
+.stats{background:var(--teal-deep);color:var(--cream);position:relative;overflow:hidden}
+.stats::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 80% 20%,rgba(217,183,64,.12),transparent 50%);
+}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;position:relative;z-index:2;text-align:center}
+.stat-num{font-family:var(--serif);font-size:clamp(2.6rem,6vw,4.4rem);font-weight:300;line-height:1;color:var(--gold)}
+.stat-num .u{font-size:.5em;color:var(--cream)}
+.stat-label{font-family:var(--display);font-weight:300;letter-spacing:.16em;text-transform:uppercase;font-size:.72rem;margin-top:14px;color:var(--sand)}
+.stat-sep{width:1px;background:rgba(217,183,64,.25)}
+
+/* ============ EXPERIENCE / FEATURES ============ */
+.exp{background:var(--cream-deep)}
+.exp-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:30px;margin-bottom:60px}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--sage);border:1px solid var(--sage)}
+.feat{
+  background:var(--cream);padding:46px 36px;transition:all .5s ease;position:relative;overflow:hidden;
+}
+.feat::before{
+  content:'';position:absolute;left:0;top:0;width:100%;height:0;
+  background:var(--teal-deep);transition:height .5s ease;z-index:0;
+}
+.feat:hover::before{height:100%}
+.feat>*{position:relative;z-index:1;transition:color .5s ease}
+.feat:hover h3,.feat:hover p,.feat:hover .feat-ico{color:var(--cream)}
+.feat:hover .feat-ico{border-color:var(--gold)}
+.feat-ico{
+  width:56px;height:56px;border:1px solid var(--teal);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;margin-bottom:24px;
+  color:var(--teal);transition:all .5s ease;
+}
+.feat-ico svg{width:26px;height:26px}
+.feat h3{font-family:var(--serif);font-weight:400;font-size:1.5rem;color:var(--teal-deep);margin-bottom:10px}
+.feat p{color:var(--ink-soft);font-weight:300;font-size:1rem;line-height:1.6}
+
+/* ============ GALLERY SECTIONS ============ */
+.gallery-sec{background:var(--cream)}
+.gallery-sec.alt{background:var(--cream-deep)}
+.gal-head{text-align:center;margin-bottom:60px}
+.gal-head .lead{margin:18px auto 0}
+
+/* masonry-ish grid */
+.gal-grid{display:grid;gap:14px}
+.g-out{grid-template-columns:repeat(12,1fr);grid-auto-rows:minmax(140px,auto)}
+.gal-item{
+  overflow:hidden;cursor:pointer;position:relative;background:var(--sage);
+  border-radius:2px;
+}
+.gal-item img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s cubic-bezier(.22,1,.36,1)}
+.gal-item:hover img{transform:scale(1.08)}
+.gal-item::after{
+  content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(15,58,71,.4),transparent 55%);
+  opacity:0;transition:opacity .5s ease;
+}
+.gal-item:hover::after{opacity:1}
+.gal-item .zoom{
+  position:absolute;bottom:16px;right:16px;width:42px;height:42px;
+  border:1px solid var(--cream);border-radius:50%;display:flex;align-items:center;justify-content:center;
+  color:var(--cream);opacity:0;transform:scale(.6) rotate(-20deg);transition:all .5s ease;z-index:2;
+}
+.gal-item:hover .zoom{opacity:1;transform:scale(1) rotate(0)}
+.gal-item .cap{
+  position:absolute;bottom:16px;left:18px;z-index:2;color:var(--cream);
+  font-family:var(--display);font-weight:300;letter-spacing:.18em;text-transform:uppercase;font-size:.66rem;
+  opacity:0;transform:translateY(10px);transition:all .5s ease;
+}
+.gal-item:hover .cap{opacity:1;transform:translateY(0)}
+
+/* feature pair (two big images) */
+.gal-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.gal-pair .gal-item{aspect-ratio:16/11}
+
+/* span helpers for outside grid */
+.s-tall{grid-column:span 5;grid-row:span 2}
+.s-wide{grid-column:span 7;grid-row:span 2}
+.s-sq{grid-column:span 4;grid-row:span 2}
+.s-sm{grid-column:span 4;grid-row:span 2}
+.s-half{grid-column:span 6;grid-row:span 2}
+.s-6-2{grid-column:span 6;grid-row:span 2}
+
+/* interior grid */
+.g-in{grid-template-columns:repeat(6,1fr);grid-auto-rows:200px}
+.i-a{grid-column:span 4;grid-row:span 2}
+.i-b{grid-column:span 2;grid-row:span 1}
+.i-c{grid-column:span 2;grid-row:span 1}
+.i-d{grid-column:span 2;grid-row:span 2}
+.i-e{grid-column:span 2;grid-row:span 2}
+.i-f{grid-column:span 2;grid-row:span 2}
+.i-g{grid-column:span 3;grid-row:span 2}
+.i-h{grid-column:span 3;grid-row:span 2}
+
+/* room cards (bedrooms/bath) */
+.rooms-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.room-card{position:relative;overflow:hidden;aspect-ratio:4/3;cursor:pointer;border-radius:2px}
+.room-card.big{grid-column:span 2;aspect-ratio:21/9}
+.room-card img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s ease}
+.room-card:hover img{transform:scale(1.07)}
+.room-card .r-label{
+  position:absolute;bottom:0;left:0;right:0;padding:24px;z-index:2;
+  background:linear-gradient(0deg,rgba(15,58,71,.78),transparent);color:var(--cream);
+}
+.room-card .r-label h4{font-family:var(--serif);font-weight:400;font-size:1.4rem}
+.room-card .r-label p{font-family:var(--display);font-weight:300;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-top:4px}
+
+/* ============ VIEW / QUOTE BREAK ============ */
+.viewbreak{
+  position:relative;height:80vh;min-height:480px;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.viewbreak-bg{
+  position:absolute;inset:0;background-attachment:fixed;background-size:cover;background-position:center;
+}
+.viewbreak-bg::after{content:'';position:absolute;inset:0;background:rgba(15,58,71,.42)}
+.viewbreak-content{position:relative;z-index:2;text-align:center;color:var(--cream);max-width:840px;padding:0 28px}
+.viewbreak-content .q{
+  font-family:var(--serif);font-style:italic;font-weight:300;
+  font-size:clamp(1.7rem,4.5vw,3.2rem);line-height:1.25;
+}
+.viewbreak-content .q .hl{color:var(--gold)}
+.viewbreak-content .attr{
+  font-family:var(--script);font-size:1.6rem;color:var(--sand);margin-top:24px;
+}
+
+/* ============ AMENITIES ============ */
+.amen{background:var(--teal-deep);color:var(--cream);position:relative;overflow:hidden}
+.amen::before{content:'';position:absolute;top:-120px;right:-120px;width:340px;height:340px;border:1px solid rgba(217,183,64,.18);border-radius:50%}
+.amen::after{content:'';position:absolute;bottom:-160px;left:-100px;width:380px;height:380px;border:1px solid rgba(127,176,188,.16);border-radius:50%}
+.amen-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:clamp(40px,6vw,80px);align-items:center;position:relative;z-index:2}
+.amen-title .sec-title{color:var(--cream)}
+.amen-title .eyebrow{color:var(--gold)}
+.amen-title p{color:var(--sand);font-weight:300;margin-top:22px;font-size:1.1rem}
+.amen-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px 40px}
+.amen-cat{margin-bottom:8px}
+.amen-cat h4{
+  font-family:var(--display);font-weight:300;letter-spacing:.2em;text-transform:uppercase;
+  font-size:.72rem;color:var(--gold);margin-bottom:16px;padding-bottom:10px;
+  border-bottom:1px solid rgba(217,183,64,.25);
+}
+.amen-cat ul{list-style:none}
+.amen-cat li{
+  font-size:1.02rem;color:var(--cream);font-weight:300;padding:6px 0 6px 24px;position:relative;
+}
+.amen-cat li::before{
+  content:'';position:absolute;left:0;top:14px;width:8px;height:8px;
+  border:1px solid var(--teal-soft);transform:rotate(45deg);
+}
+
+/* ============ LOCATION ============ */
+.loc{background:var(--cream)}
+.loc-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,5vw,70px);align-items:center}
+.loc-copy h2{margin-bottom:24px}
+.loc-copy p{color:var(--ink-soft);font-weight:300;font-size:1.1rem;margin-bottom:24px;max-width:52ch}
+.dist-list{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--sage);border:1px solid var(--sage);margin-top:10px}
+.dist{background:var(--cream);padding:18px 20px;display:flex;justify-content:space-between;align-items:baseline;transition:background .4s ease}
+.dist:hover{background:var(--cream-deep)}
+.dist .name{font-family:var(--serif);font-size:1.06rem;color:var(--teal-deep)}
+.dist .km{font-family:var(--display);font-weight:400;font-size:.82rem;color:var(--ochre);letter-spacing:.05em}
+.map-card{position:relative;border-radius:3px;overflow:hidden;box-shadow:0 24px 60px rgba(29,91,110,.18);min-height:440px;background:var(--sage)}
+.map-card iframe{width:100%;height:100%;border:0;min-height:440px;filter:grayscale(.2) saturate(1.05)}
+
+/* ============ REVIEWS ============ */
+.reviews{background:var(--cream-deep);overflow:hidden}
+.rev-head{text-align:center;margin-bottom:56px}
+.rev-stars{color:var(--gold);font-size:1.4rem;letter-spacing:.18em;margin-top:16px}
+.rev-track-wrap{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.rev-track{display:flex;gap:26px;width:max-content;animation:revScroll 46s linear infinite}
+.rev-track:hover{animation-play-state:paused}
+@keyframes revScroll{to{transform:translateX(-50%)}}
+.rev-card{
+  width:380px;flex-shrink:0;background:var(--cream);padding:38px 34px;
+  border-radius:4px;box-shadow:0 14px 40px rgba(29,91,110,.08);
+  border-top:3px solid var(--gold);position:relative;
+}
+.rev-card .quote-mark{font-family:var(--serif);font-size:4rem;color:var(--sand);line-height:.5;height:30px;display:block}
+.rev-card p{color:var(--ink-soft);font-weight:300;font-size:1.06rem;line-height:1.65;margin-bottom:26px;font-style:italic}
+.rev-foot{display:flex;align-items:center;gap:14px}
+.rev-av{width:46px;height:46px;border-radius:50%;background:var(--teal-deep);color:var(--gold);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:1.2rem;flex-shrink:0}
+.rev-meta .nm{font-family:var(--serif);font-size:1.1rem;color:var(--teal-deep)}
+.rev-meta .src{font-family:var(--display);font-weight:300;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-top:2px}
+.rev-stars-sm{color:var(--gold);font-size:.8rem;letter-spacing:.1em;margin-bottom:14px}
+.rev-more{text-align:center;margin-top:50px}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--display);font-weight:300;letter-spacing:.14em;text-transform:uppercase;font-size:.78rem;
+  color:var(--teal-deep);border:1px solid var(--teal);padding:13px 30px;border-radius:40px;transition:all .4s ease;
+}
+.btn-ghost:hover{background:var(--teal-deep);color:var(--cream);gap:16px}
+
+/* ============ CTA / BOOK ============ */
+.book{position:relative;overflow:hidden;background:var(--teal-deep)}
+.book-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.28}
+.book-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,58,71,.85),rgba(15,58,71,.92))}
+.book-inner{position:relative;z-index:2;text-align:center;color:var(--cream);max-width:760px;margin:0 auto}
+.book-inner .eyebrow{justify-content:center;color:var(--gold)}
+.book-inner h2{font-family:var(--serif);font-weight:300;font-size:clamp(2.4rem,6vw,4.4rem);line-height:1.05;margin-bottom:20px}
+.book-inner h2 em{font-style:italic;color:var(--gold)}
+.book-inner p{color:var(--sand);font-weight:300;font-size:1.15rem;margin-bottom:14px}
+.book-stay{font-family:var(--script);font-size:1.5rem;color:var(--gold);margin-bottom:38px;display:block}
+.book-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn-gold{
+  display:inline-flex;align-items:center;gap:12px;
+  font-family:var(--display);font-weight:400;letter-spacing:.13em;text-transform:uppercase;font-size:.82rem;
+  background:var(--gold);color:var(--teal-deep);padding:17px 38px;border-radius:40px;transition:all .4s ease;
+  box-shadow:0 12px 30px rgba(217,183,64,.3);
+}
+.btn-gold:hover{background:var(--cream);transform:translateY(-3px);box-shadow:0 18px 40px rgba(217,183,64,.4)}
+.btn-out{
+  display:inline-flex;align-items:center;gap:12px;
+  font-family:var(--display);font-weight:300;letter-spacing:.13em;text-transform:uppercase;font-size:.82rem;
+  border:1px solid rgba(246,241,230,.5);color:var(--cream);padding:17px 36px;border-radius:40px;transition:all .4s ease;
+}
+.btn-out:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ============ FOOTER ============ */
+footer{background:#16424f;color:var(--cream);padding:80px 0 0}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:50px;padding-bottom:60px}
+.foot-brand .fb-name{font-family:var(--serif);font-weight:300;font-size:2rem;color:var(--cream);margin:18px 0 6px}
+.foot-brand .fb-sub{font-family:var(--script);color:var(--gold);font-size:1.2rem}
+.foot-brand p{color:var(--sand);font-weight:300;font-size:1rem;margin-top:18px;max-width:38ch;line-height:1.7}
+.foot-col h5{font-family:var(--display);font-weight:300;letter-spacing:.2em;text-transform:uppercase;font-size:.74rem;color:var(--gold);margin-bottom:22px}
+.foot-col ul{list-style:none}
+.foot-col li{margin-bottom:13px}
+.foot-col a,.foot-col span{color:var(--sand);font-weight:300;font-size:1rem;transition:color .3s ease;display:inline-flex;align-items:center;gap:9px}
+.foot-col a:hover{color:var(--gold)}
+.foot-bottom{border-top:1px solid rgba(246,241,230,.12);padding:26px 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.foot-bottom p{color:var(--sand);font-weight:300;font-size:.86rem}
+.foot-bottom .lic{color:rgba(228,217,184,.6);font-size:.78rem}
+.advon{color:var(--sand);font-weight:300;font-size:.86rem}
+.advon a{color:var(--gold);font-weight:400;transition:opacity .3s ease}
+.advon a:hover{opacity:.7}
+
+/* ============ LIGHTBOX ============ */
+.lb{position:fixed;inset:0;z-index:5000;background:rgba(12,32,40,.96);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .4s ease,visibility .4s ease;padding:30px}
+.lb.open{opacity:1;visibility:visible}
+.lb img{max-width:92vw;max-height:88vh;object-fit:contain;border-radius:3px;box-shadow:0 30px 80px rgba(0,0,0,.5);transform:scale(.92);transition:transform .4s cubic-bezier(.22,1,.36,1)}
+.lb.open img{transform:scale(1)}
+.lb-close{position:absolute;top:24px;right:30px;width:50px;height:50px;border:1px solid rgba(246,241,230,.4);border-radius:50%;background:none;cursor:pointer;transition:all .4s ease}
+.lb-close:hover{background:rgba(246,241,230,.12);transform:rotate(90deg)}
+.lb-close::before,.lb-close::after{content:'';position:absolute;top:50%;left:50%;width:22px;height:1.5px;background:var(--cream)}
+.lb-close::before{transform:translate(-50%,-50%) rotate(45deg)}
+.lb-close::after{transform:translate(-50%,-50%) rotate(-45deg)}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:54px;height:54px;border:1px solid rgba(246,241,230,.35);border-radius:50%;background:rgba(12,32,40,.4);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .4s ease;color:var(--cream)}
+.lb-nav:hover{background:var(--gold);color:var(--teal-deep);border-color:var(--gold)}
+.lb-prev{left:24px}.lb-next{right:24px}
+.lb-counter{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);font-family:var(--display);font-weight:300;letter-spacing:.2em;font-size:.8rem;color:var(--sand)}
+
+/* back to top */
+.totop{position:fixed;bottom:28px;right:28px;width:50px;height:50px;background:var(--teal-deep);color:var(--gold);border:none;border-radius:50%;cursor:pointer;z-index:900;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transform:translateY(20px);transition:all .4s ease;box-shadow:0 10px 30px rgba(29,91,110,.3)}
+.totop.show{opacity:1;visibility:visible;transform:translateY(0)}
+.totop:hover{background:var(--gold);color:var(--teal-deep);transform:translateY(-4px)}
+
+/* progress bar */
+.progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--teal));z-index:1100;width:0%;transition:width .1s linear}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:1024px){
+  .intro-grid,.amen-grid,.loc-grid{grid-template-columns:1fr;gap:50px}
+  .intro-visual{max-width:480px;margin:0 auto}
+  .stats-grid{grid-template-columns:1fr 1fr;gap:40px 20px}
+  .stat-sep{display:none}
+  .feat-grid{grid-template-columns:1fr 1fr}
+  .amen-cols{grid-template-columns:1fr 1fr}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:40px}
+}
+@media(max-width:768px){
+  nav.desktop{display:none}
+  .burger{display:flex}
+  .g-out,.g-in{grid-template-columns:1fr 1fr!important;grid-auto-rows:160px!important}
+  .s-tall,.s-wide,.s-sq,.s-sm,.s-half,.s-6-2,.i-a,.i-b,.i-c,.i-d,.i-e,.i-f,.i-g,.i-h{grid-column:span 1!important;grid-row:span 1!important}
+  .s-tall,.i-a,.i-g{grid-column:span 2!important;grid-row:span 1!important}
+  .gal-pair{grid-template-columns:1fr}
+  .rooms-grid{grid-template-columns:1fr}
+  .room-card.big{grid-column:span 1;aspect-ratio:4/3}
+  .dist-list{grid-template-columns:1fr}
+  .amen-cols{grid-template-columns:1fr}
+  .feat-grid{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr;gap:36px}
+  .foot-bottom{flex-direction:column;text-align:center}
+  .viewbreak-bg{background-attachment:scroll}
+  .lb-nav{width:44px;height:44px}.lb-prev{left:10px}.lb-next{right:10px}
+  .intro-badge{width:120px;height:120px;bottom:-20px;left:-15px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.2s!important}
+  .hero-bg{animation:none;transform:scale(1)}
+  .reveal,.reveal-img{opacity:1;transform:none;clip-path:none}
+}
+</style>
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div id="preloader">
+  <div class="pre-window">
+    <svg viewBox="0 0 90 108">
+      <path class="pre-arch" d="M12,40 Q12,6 45,6 Q78,6 78,40 L78,98 L12,98 Z"/>
+      <g class="pre-fill">
+        <path d="M20,46 h50 v8 h-50 z" fill="var(--teal-soft)"/>
+        <path d="M20,62 Q35,52 50,60 Q62,66 70,62 v18 h-50 z" fill="var(--ochre)"/>
+        <path d="M20,82 h50 v6 h-50 z" fill="var(--gold)"/>
+      </g>
+    </svg>
+  </div>
+  <div class="pre-text">Thetida's Villa</div>
+</div>
+
+<div class="progress" id="progress"></div>
+
+<!-- HEADER -->
+<header id="header">
+  <a href="#top" class="brand">
+    <span class="brand-mark">
+      <svg viewBox="0 0 90 108" xmlns="http://www.w3.org/2000/svg">
+        <path class="brand-stroke" d="M12,40 Q12,6 45,6 Q78,6 78,40 L78,98 L12,98 Z" fill="none" stroke="var(--teal)" stroke-width="3.5"/>
+        <path d="M19,45 h52 v7 h-52 z" fill="var(--teal-soft)"/>
+        <path d="M19,60 Q34,50 50,58 Q63,65 71,60 v20 h-52 z" fill="var(--ochre)"/>
+        <path d="M19,84 h52 v6 h-52 z" fill="var(--gold)"/>
+      </svg>
+    </span>
+    <span class="brand-name">Thetida's Villa<span class="brand-sub" data-el="πανοραμική θέα χωριού" data-en="panoramic village view">πανοραμική θέα χωριού</span></span>
+  </a>
+  <nav class="desktop">
+    <a href="#about" data-el="Η Βίλα" data-en="The Villa">Η Βίλα</a>
+    <a href="#experience" data-el="Εμπειρία" data-en="Experience">Εμπειρία</a>
+    <a href="#spaces" data-el="Χώροι" data-en="Spaces">Χώροι</a>
+    <a href="#location" data-el="Τοποθεσία" data-en="Location">Τοποθεσία</a>
+    <a href="#reviews" data-el="Κριτικές" data-en="Reviews">Κριτικές</a>
+    <div class="lang">
+      <button id="flagEl" class="active" title="Ελληνικά">🇬🇷</button>
+      <button id="flagEn" title="English">🇬🇧</button>
+    </div>
+    <a href="#book" class="nav-cta" data-el="Κράτηση" data-en="Book">Κράτηση</a>
+  </nav>
+  <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</header>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" id="mobileClose" aria-label="Close"></button>
+  <a href="#about" data-el="Η Βίλα" data-en="The Villa">Η Βίλα</a>
+  <a href="#experience" data-el="Εμπειρία" data-en="Experience">Εμπειρία</a>
+  <a href="#spaces" data-el="Χώροι" data-en="Spaces">Χώροι</a>
+  <a href="#location" data-el="Τοποθεσία" data-en="Location">Τοποθεσία</a>
+  <a href="#reviews" data-el="Κριτικές" data-en="Reviews">Κριτικές</a>
+  <a href="#book" data-el="Κράτηση" data-en="Book Now">Κράτηση</a>
+  <div class="mobile-lang">
+    <button id="mFlagEl" class="active">🇬🇷</button>
+    <button id="mFlagEn">🇬🇧</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow"><span>✦</span>&nbsp;&nbsp;&nbsp;<span data-el="Απέρι · Κάρπαθος" data-en="Apéri · Karpathos">Απέρι · Κάρπαθος</span>&nbsp;&nbsp;&nbsp;<span>✦</span></p>
+    <h1>
+      <span class="line"><span>Thetida's</span></span>
+      <span class="line"><span>Villa</span></span>
+    </h1>
+    <p class="hero-script" data-el="όπου το χωριό συναντά τον ορίζοντα" data-en="where the village meets the horizon">όπου το χωριό συναντά τον ορίζοντα</p>
+    <p class="hero-loc" data-el="Πανοραμική θέα χωριού" data-en="Panoramic Village View">Πανοραμική θέα χωριού</p>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span data-el="Ανακαλύψτε" data-en="Discover">Ανακαλύψτε</span>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track" id="marquee">
+    <span data-el="Αυθεντική Καρπάθικη Αρχιτεκτονική" data-en="Authentic Karpathian Architecture">Αυθεντική Καρπάθικη Αρχιτεκτονική</span>
+    <span data-el="Ιδιωτικό Τζακούζι" data-en="Private Jacuzzi">Ιδιωτικό Τζακούζι</span>
+    <span data-el="Πέτρινη Αυλή με Αιωνόβια Ελιά" data-en="Stone Courtyard with Ancient Olive">Πέτρινη Αυλή με Αιωνόβια Ελιά</span>
+    <span data-el="Θέα στη Θάλασσα & στο Βουνό" data-en="Sea & Mountain Views">Θέα στη Θάλασσα & στο Βουνό</span>
+    <span data-el="3 Υπνοδωμάτια · 105τμ" data-en="3 Bedrooms · 105m²">3 Υπνοδωμάτια · 105τμ</span>
+  </div>
+</div>
+
+<!-- ABOUT / INTRO -->
+<section class="intro sec-pad" id="about">
+  <div class="wrap">
+    <div class="intro-grid">
+      <div class="intro-copy">
+        <p class="eyebrow reveal" data-el="Μια ιστορία τόπου" data-en="A sense of place">Μια ιστορία τόπου</p>
+        <h2 class="sec-title reveal d1" data-el="Στο πιο αμφιθεατρικό σημείο του <em>Απερίου</em>" data-en="At the most <em>amphitheatric</em> point of Apéri">Στο πιο αμφιθεατρικό σημείο του <em>Απερίου</em></h2>
+        <div class="reveal d2">
+          <p data-el="Δεν υπάρχει τίποτα που να εμποδίζει την πανοραμική θέα που απλώνεται μπροστά στα μάτια σας. Άσπρα σπίτια, πράσινα βουνά με μικρές εκκλησιές στις κορυφές τους και, στο βάθος, το απέραντο γαλάζιο της θάλασσας." data-en="Nothing stands between you and the panorama that unfolds before your eyes. Whitewashed houses, green mountains crowned with tiny chapels and, in the distance, the endless blue of the sea.">Δεν υπάρχει τίποτα που να εμποδίζει την πανοραμική θέα που απλώνεται μπροστά στα μάτια σας. Άσπρα σπίτια, πράσινα βουνά με μικρές εκκλησιές στις κορυφές τους και, στο βάθος, το απέραντο γαλάζιο της θάλασσας.</p>
+          <p data-el="Ένα παραδοσιακό σπίτι με σύγχρονες ανέσεις και μερικές αντίκες φτιαγμένες από τους προγόνους της οικογένειας. Η αυλή γύρω-γύρω δημιουργεί διαφορετικές γωνιές, όπου ανάλογα με την ώρα της ημέρας απολαμβάνετε τον καφέ, τον ήλιο, τη σκιά και την απέραντη γαλήνη." data-en="A traditional home with modern comforts and a few antiques crafted by the family's ancestors. The courtyard wraps around the house, creating different corners where — depending on the hour — you savour your coffee, the sun, the shade and the boundless calm.">Ένα παραδοσιακό σπίτι με σύγχρονες ανέσεις και μερικές αντίκες φτιαγμένες από τους προγόνους της οικογένειας. Η αυλή γύρω-γύρω δημιουργεί διαφορετικές γωνιές, όπου ανάλογα με την ώρα της ημέρας απολαμβάνετε τον καφέ, τον ήλιο, τη σκιά και την απέραντη γαλήνη.</p>
+          <span class="olive-note" data-el="Μια γέρικη ελιά στο κέντρο της αυλής σας αγκαλιάζει με τα κλαδιά της." data-en="An old olive tree at the heart of the courtyard embraces you with its branches.">Μια γέρικη ελιά στο κέντρο της αυλής σας αγκαλιάζει με τα κλαδιά της.</span>
+        </div>
+      </div>
+      <div class="intro-visual reveal d2">
+        <div class="intro-frame">
+          <img class="zoomable" data-cat="outside" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/663082564.jpg" alt="Thetida's Villa terrace view over Aperi">
+        </div>
+        <div class="intro-badge">
+          <span class="big">5.0</span>
+          <span class="small" data-el="Άριστα" data-en="Top Rated">Άριστα</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats sec-pad">
+  <div class="wrap">
+    <div class="stats-grid">
+      <div class="reveal"><div class="stat-num" data-count="3">0</div><div class="stat-label" data-el="Υπνοδωμάτια" data-en="Bedrooms">Υπνοδωμάτια</div></div>
+      <div class="stat-sep"></div>
+      <div class="reveal d1"><div class="stat-num" data-count="105"><span class="u"></span></div><div class="stat-label" data-el="Τετραγωνικά μέτρα" data-en="Square metres">Τετραγωνικά μέτρα</div></div>
+      <div class="stat-sep"></div>
+      <div class="reveal d2"><div class="stat-num" data-count="2">0</div><div class="stat-label" data-el="Μπάνια" data-en="Bathrooms">Μπάνια</div></div>
+      <div class="stat-sep"></div>
+      <div class="reveal d3"><div class="stat-num">∞</div><div class="stat-label" data-el="Θέα & Γαλήνη" data-en="View & Serenity">Θέα & Γαλήνη</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE / FEATURES -->
+<section class="exp sec-pad" id="experience">
+  <div class="wrap">
+    <div class="exp-head">
+      <div>
+        <p class="eyebrow reveal" data-el="Η εμπειρία" data-en="The experience">Η εμπειρία</p>
+        <h2 class="sec-title reveal d1" data-el="Φτιαγμένη για <span class='scr'>γαλήνη</span>" data-en="Crafted for <span class='scr'>stillness</span>">Φτιαγμένη για <span class="scr">γαλήνη</span></h2>
+      </div>
+      <p class="lead reveal d2" data-el="Αν και βρίσκεται μέσα στο χωριό, έχετε την αίσθηση ότι δεν υπάρχουν γείτονες — μόνο εσείς, η θέα και ο χρόνος που επιβραδύνει." data-en="Although it sits within the village, you feel as if there are no neighbours — only you, the view, and time slowing down.">Αν και βρίσκεται μέσα στο χωριό, έχετε την αίσθηση ότι δεν υπάρχουν γείτονες — μόνο εσείς, η θέα και ο χρόνος που επιβραδύνει.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat reveal">
+        <div class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 20h20M3 20l6-9 4 5 3-4 6 8M16.5 7a2 2 0 1 0 0-.01"/></svg></div>
+        <h3 data-el="Πανοραμική Θέα" data-en="Panoramic View">Πανοραμική Θέα</h3>
+        <p data-el="Θάλασσα, χωριό, βουνό και κήπος — η θέα αλλάζει με κάθε ώρα της ημέρας." data-en="Sea, village, mountain and garden — the view shifts with every hour of the day.">Θάλασσα, χωριό, βουνό και κήπος — η θέα αλλάζει με κάθε ώρα της ημέρας.</p>
+      </div>
+      <div class="feat reveal d1">
+        <div class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 14c2-1 3-1 5 0s3 1 5 0 3-1 5 0M4 18c2-1 3-1 5 0s3 1 5 0 3-1 5 0M12 3v6M9 6l3-3 3 3"/></svg></div>
+        <h3 data-el="Ιδιωτικό Τζακούζι" data-en="Private Jacuzzi">Ιδιωτικό Τζακούζι</h3>
+        <p data-el="Χαλαρώστε στο υδρομασάζ κάτω από τα αστέρια, με τα φώτα του χωριού να τρεμοπαίζουν." data-en="Unwind in the jacuzzi beneath the stars, with the village lights flickering below.">Χαλαρώστε στο υδρομασάζ κάτω από τα αστέρια, με τα φώτα του χωριού να τρεμοπαίζουν.</p>
+      </div>
+      <div class="feat reveal d2">
+        <div class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 22c4-4 6-8 6-12a6 6 0 0 0-12 0c0 4 2 8 6 12zM12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg></div>
+        <h3 data-el="Πέτρινη Αυλή" data-en="Stone Courtyard">Πέτρινη Αυλή</h3>
+        <p data-el="Πετρόστρωτη αυλή με μια αιωνόβια ελιά στο κέντρο — η ψυχή του σπιτιού." data-en="A stone-paved courtyard with a centuries-old olive at its heart — the soul of the house.">Πετρόστρωτη αυλή με μια αιωνόβια ελιά στο κέντρο — η ψυχή του σπιτιού.</p>
+      </div>
+      <div class="feat reveal">
+        <div class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9l9-6 9 6v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1zM9 21v-7h6v7M7 12h.01M17 12h.01"/></svg></div>
+        <h3 data-el="Πλήρης Κουζίνα" data-en="Full Kitchen">Πλήρης Κουζίνα</h3>
+        <p data-el="Πλήρως εξοπλισμένη κουζίνα με ψυγείο, φούρνο και ό,τι χρειάζεστε για κάθε γεύμα." data-en="A fully equipped kitchen with fridge, oven and everything you need for every meal.">Πλήρως εξοπλισμένη κουζίνα με ψυγείο, φούρνο και ό,τι χρειάζεστε για κάθε γεύμα.</p>
+      </div>
+      <div class="feat reveal d1">
+        <div class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="8" r="5"/><path d="M12 3c1.5 1.5 1.5 8 0 10M12 3c-1.5 1.5-1.5 8 0 10M7 8h10"/></svg></div>
+        <h3 data-el="Δεκτά Κατοικίδια" data-en="Pets Welcome">Δεκτά Κατοικίδια</h3>
+        <p data-el="Τα τετράποδα μέλη της οικογένειας είναι ευπρόσδεκτα — χωρίς επιπλέον χρέωση." data-en="Your four-legged family members are welcome — at no extra charge.">Τα τετράποδα μέλη της οικογένειας είναι ευπρόσδεκτα — χωρίς επιπλέον χρέωση.</p>
+      </div>
+      <div class="feat reveal d2">
+        <div class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 12.5a7 7 0 0 1 14 0M2 9a11 11 0 0 1 20 0M8.5 16a3.5 3.5 0 0 1 7 0M12 19.5h.01"/></svg></div>
+        <h3 data-el="Δωρεάν Wi-Fi & Πάρκινγκ" data-en="Free Wi-Fi & Parking">Δωρεάν Wi-Fi & Πάρκινγκ</h3>
+        <p data-el="Παραμείνετε συνδεδεμένοι όσο θέλετε, με ιδιωτικό χώρο στάθμευσης στον χώρο." data-en="Stay connected as much as you like, with private parking on the property.">Παραμείνετε συνδεδεμένοι όσο θέλετε, με ιδιωτικό χώρο στάθμευσης στον χώρο.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIEW BREAK 1 -->
+<section class="viewbreak">
+  <div class="viewbreak-bg" style="background-image:url('https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/unnamed-156.jpg')"></div>
+  <div class="viewbreak-content reveal">
+    <p class="q" data-el="«Σιγά τον καφέ σου στη σκιά, νιώσε το ζεστό αεράκι του νησιού, βυθίσου στο <span class='hl'>ιδιωτικό τζακούζι κάτω από τα αστέρια.»</span>" data-en="“Sip your morning coffee in the shade, feel the warm island breeze, sink into the <span class='hl'>private jacuzzi under the stars.”</span>">«Σιγά τον καφέ σου στη σκιά, νιώσε το ζεστό αεράκι του νησιού, βυθίσου στο <span class="hl">ιδιωτικό τζακούζι κάτω από τα αστέρια.»</span></p>
+    <p class="attr" data-el="— Thetida's Villa, Απέρι" data-en="— Thetida's Villa, Apéri">— Thetida's Villa, Απέρι</p>
+  </div>
+</section>
+
+<!-- SPACES -->
+<section class="gallery-sec sec-pad" id="spaces">
+  <div class="wrap">
+    <div class="gal-head">
+      <p class="eyebrow center reveal" data-el="Οι χώροι" data-en="The spaces">Οι χώροι</p>
+      <h2 class="sec-title reveal d1" data-el="Εξερευνήστε κάθε <em>γωνιά</em>" data-en="Explore every <em>corner</em>">Εξερευνήστε κάθε <em>γωνιά</em></h2>
+      <p class="lead center reveal d2" data-el="Από την πετρόστρωτη αυλή μέχρι τα φωτεινά υπνοδωμάτια — κάθε χώρος της βίλας λέει τη δική του ιστορία. Κάντε κλικ σε κάθε εικόνα για να τη δείτε σε πλήρες μέγεθος." data-en="From the stone courtyard to the sunlit bedrooms — every space tells its own story. Click any image to view it full size.">Από την πετρόστρωτη αυλή μέχρι τα φωτεινά υπνοδωμάτια — κάθε χώρος της βίλας λέει τη δική του ιστορία. Κάντε κλικ σε κάθε εικόνα για να τη δείτε σε πλήρες μέγεθος.</p>
+    </div>
+
+    <!-- OUTSIDE -->
+    <p class="eyebrow reveal" style="margin-bottom:24px" data-el="Εξωτερικοί χώροι & Αυλή" data-en="Outdoor Spaces & Courtyard">Εξωτερικοί χώροι & Αυλή</p>
+    <div class="gal-grid g-out reveal">
+      <div class="gal-item s-wide" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/unnamed-144.jpg" alt="Terrace at sunset"><span class="cap" data-el="Η βεράντα στο ηλιοβασίλεμα" data-en="The terrace at sunset">Η βεράντα στο ηλιοβασίλεμα</span><span class="zoom">+</span></div>
+      <div class="gal-item s-tall" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/unnamed-157.jpg" alt="Courtyard"><span class="cap" data-el="Η πέτρινη αυλή" data-en="The stone courtyard">Η πέτρινη αυλή</span><span class="zoom">+</span></div>
+      <div class="gal-item s-sm" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/unnamed-158.jpg" alt="Outdoor seating"><span class="zoom">+</span></div>
+      <div class="gal-item s-sm" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/663082525.jpg" alt="Garden corner"><span class="zoom">+</span></div>
+      <div class="gal-item s-sm" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/663082529.jpg" alt="Courtyard view"><span class="zoom">+</span></div>
+      <div class="gal-item s-half" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/663082551.jpg" alt="Outdoor dining"><span class="cap" data-el="Γεύματα στο ύπαιθρο" data-en="Dining outdoors">Γεύματα στο ύπαιθρο</span><span class="zoom">+</span></div>
+      <div class="gal-item s-half" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/663082561.jpg" alt="Terrace"><span class="zoom">+</span></div>
+      <div class="gal-item s-sm" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689845566.jpg" alt="Outside view"><span class="zoom">+</span></div>
+      <div class="gal-item s-sm" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/unnamed-145.jpg" alt="Courtyard detail"><span class="zoom">+</span></div>
+      <div class="gal-item s-sm" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/unnamed-156.jpg" alt="Village panorama"><span class="cap" data-el="Θέα στο Απέρι" data-en="View over Aperi">Θέα στο Απέρι</span><span class="zoom">+</span></div>
+    </div>
+
+    <!-- big pair -->
+    <div class="gal-pair reveal" style="margin-top:14px">
+      <div class="gal-item" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/663082564.jpg" alt="Panoramic terrace"><span class="cap" data-el="Η μεγάλη βεράντα" data-en="The grand terrace">Η μεγάλη βεράντα</span><span class="zoom">+</span></div>
+      <div class="gal-item" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/unnamed-155.jpg" alt="Outdoor relaxation"><span class="cap" data-el="Γωνιά χαλάρωσης" data-en="A corner to unwind">Γωνιά χαλάρωσης</span><span class="zoom">+</span></div>
+    </div>
+
+    <!-- more outside grid -->
+    <div class="gal-grid g-out reveal" style="margin-top:14px">
+      <div class="gal-item s-sm" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846387.jpg" alt="Outdoor space"><span class="zoom">+</span></div>
+      <div class="gal-item s-sm" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846414.jpg" alt="Outdoor space"><span class="zoom">+</span></div>
+      <div class="gal-item s-sm" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846455.jpg" alt="Outdoor space"><span class="zoom">+</span></div>
+      <div class="gal-item s-half" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846503.jpg" alt="Outdoor terrace"><span class="zoom">+</span></div>
+      <div class="gal-item s-half" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846529.jpg" alt="Outdoor terrace"><span class="zoom">+</span></div>
+      <div class="gal-item s-sm" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846584.jpg" alt="Garden"><span class="zoom">+</span></div>
+      <div class="gal-item s-sm" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846597.jpg" alt="Garden"><span class="zoom">+</span></div>
+      <div class="gal-item s-sm" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846804.jpg" alt="Outdoor"><span class="zoom">+</span></div>
+      <div class="gal-item s-sm" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846848.jpg" alt="Outdoor"><span class="zoom">+</span></div>
+      <div class="gal-item s-sm" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/690439447.jpg" alt="Outdoor"><span class="zoom">+</span></div>
+      <div class="gal-item s-sm" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/690439450.jpg" alt="Outdoor"><span class="zoom">+</span></div>
+      <div class="gal-item s-sm" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/690439452.jpg" alt="Outdoor"><span class="zoom">+</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERIOR -->
+<section class="gallery-sec alt sec-pad">
+  <div class="wrap">
+    <p class="eyebrow reveal" style="margin-bottom:24px" data-el="Εσωτερικοί χώροι & Σαλόνι" data-en="Interior & Living Areas">Εσωτερικοί χώροι & Σαλόνι</p>
+    <div class="gal-grid g-in reveal">
+      <div class="gal-item i-a" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/unnamed-148.jpg" alt="Living room"><span class="cap" data-el="Το φωτεινό σαλόνι" data-en="The bright living room">Το φωτεινό σαλόνι</span><span class="zoom">+</span></div>
+      <div class="gal-item i-b" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/663082531.jpg" alt="Living area"><span class="zoom">+</span></div>
+      <div class="gal-item i-c" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/663082532.jpg" alt="Living detail"><span class="zoom">+</span></div>
+      <div class="gal-item i-d" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/unnamed-149.jpg" alt="Interior"><span class="zoom">+</span></div>
+      <div class="gal-item i-e" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/663082534.jpg" alt="Kitchen"><span class="cap" data-el="Η κουζίνα" data-en="The kitchen">Η κουζίνα</span><span class="zoom">+</span></div>
+      <div class="gal-item i-f" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/663082541.jpg" alt="Dining"><span class="zoom">+</span></div>
+      <div class="gal-item i-g" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/unnamed-152.jpg" alt="Open loft"><span class="cap" data-el="Το παραδοσιακό πατάρι" data-en="The traditional loft">Το παραδοσιακό πατάρι</span><span class="zoom">+</span></div>
+      <div class="gal-item i-h" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/unnamed-153.jpg" alt="Interior detail"><span class="zoom">+</span></div>
+      <div class="gal-item i-d" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/663082544.jpg" alt="Living space"><span class="zoom">+</span></div>
+      <div class="gal-item i-e" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689845225.jpg" alt="Interior"><span class="zoom">+</span></div>
+      <div class="gal-item i-f" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689845298.jpg" alt="Interior"><span class="zoom">+</span></div>
+      <div class="gal-item i-g" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/unnamed-154.jpg" alt="Interior"><span class="zoom">+</span></div>
+      <div class="gal-item i-h" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689845352.jpg" alt="Interior"><span class="zoom">+</span></div>
+      <div class="gal-item i-e" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/710535546.jpg" alt="Interior"><span class="zoom">+</span></div>
+      <div class="gal-item i-f" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689845825.jpg" alt="Interior"><span class="zoom">+</span></div>
+      <div class="gal-item i-d" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846009.jpg" alt="Interior"><span class="zoom">+</span></div>
+      <div class="gal-item i-e" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846762.jpg" alt="Interior"><span class="zoom">+</span></div>
+      <div class="gal-item i-f" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689875041.jpg" alt="Interior"><span class="zoom">+</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- VIEW BREAK 2 -->
+<section class="viewbreak">
+  <div class="viewbreak-bg" style="background-image:url('https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846597.jpg')"></div>
+  <div class="viewbreak-content reveal">
+    <p class="q" data-el="Ένα σπίτι μέσα σε ένα <span class='hl'>θύλακα του χρόνου</span> — όπου η αυθεντική αρχιτεκτονική συναντά τη σύγχρονη άνεση." data-en="A home inside a <span class='hl'>pocket of time</span> — where authentic architecture meets modern comfort.">Ένα σπίτι μέσα σε ένα <span class="hl">θύλακα του χρόνου</span> — όπου η αυθεντική αρχιτεκτονική συναντά τη σύγχρονη άνεση.</p>
+  </div>
+</section>
+
+<!-- BEDROOMS & BATHROOMS -->
+<section class="gallery-sec sec-pad">
+  <div class="wrap">
+    <p class="eyebrow reveal" style="margin-bottom:24px" data-el="Υπνοδωμάτια" data-en="Bedrooms">Υπνοδωμάτια</p>
+    <div class="rooms-grid reveal" style="margin-bottom:50px">
+      <div class="room-card big" data-cat="bed"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/unnamed-146.jpg" alt="Master bedroom"><div class="r-label"><h4 data-el="Κύριο Υπνοδωμάτιο" data-en="Master Bedroom">Κύριο Υπνοδωμάτιο</h4><p data-el="Με θέα στο βουνό" data-en="With mountain views">Με θέα στο βουνό</p></div></div>
+      <div class="room-card" data-cat="bed"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/unnamed-147.jpg" alt="Bedroom"><div class="r-label"><h4 data-el="Δεύτερο Υπνοδωμάτιο" data-en="Second Bedroom">Δεύτερο Υπνοδωμάτιο</h4></div></div>
+      <div class="room-card" data-cat="bed"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/unnamed-150.jpg" alt="Bedroom"><div class="r-label"><h4 data-el="Άνετος Ύπνος" data-en="Restful Sleep">Άνετος Ύπνος</h4></div></div>
+    </div>
+    <div class="gal-grid g-in reveal">
+      <div class="gal-item i-g" data-cat="bed"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/unnamed-151.jpg" alt="Bedroom detail"><span class="zoom">+</span></div>
+      <div class="gal-item i-h" data-cat="bed"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/663082565.jpg" alt="Bedroom"><span class="zoom">+</span></div>
+      <div class="gal-item i-e" data-cat="bed"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846057.jpg" alt="Bedroom"><span class="zoom">+</span></div>
+      <div class="gal-item i-f" data-cat="bed"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846101.jpg" alt="Bedroom"><span class="zoom">+</span></div>
+      <div class="gal-item i-d" data-cat="bed"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846136.jpg" alt="Bedroom"><span class="zoom">+</span></div>
+      <div class="gal-item i-e" data-cat="bed"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846189.jpg" alt="Bedroom"><span class="zoom">+</span></div>
+      <div class="gal-item i-f" data-cat="bed"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689874985.jpg" alt="Bedroom"><span class="zoom">+</span></div>
+      <div class="gal-item i-g" data-cat="bed"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689875005.jpg" alt="Bedroom"><span class="zoom">+</span></div>
+    </div>
+
+    <p class="eyebrow reveal" style="margin:60px 0 24px" data-el="Μπάνια" data-en="Bathrooms">Μπάνια</p>
+    <div class="gal-grid g-in reveal">
+      <div class="gal-item i-g" data-cat="bath"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846219.jpg" alt="Bathroom"><span class="cap" data-el="Με μπανιέρα & υδρομασάζ" data-en="With bathtub & jacuzzi">Με μπανιέρα & υδρομασάζ</span><span class="zoom">+</span></div>
+      <div class="gal-item i-e" data-cat="bath"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689875068.jpg" alt="Bathroom"><span class="zoom">+</span></div>
+      <div class="gal-item i-e" data-cat="bath"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689875095.jpg" alt="Bathroom"><span class="zoom">+</span></div>
+    </div>
+
+    <p class="eyebrow reveal" style="margin:60px 0 24px" data-el="Χώρος στάθμευσης" data-en="Parking">Χώρος στάθμευσης</p>
+    <div class="gal-pair reveal">
+      <div class="gal-item" data-cat="park" style="grid-column:span 2"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846883.jpg" alt="Private parking"><span class="cap" data-el="Ιδιωτικός χώρος στάθμευσης στον χώρο" data-en="Private parking on the property">Ιδιωτικός χώρος στάθμευσης στον χώρο</span><span class="zoom">+</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- AMENITIES -->
+<section class="amen sec-pad">
+  <div class="wrap">
+    <div class="amen-grid">
+      <div class="amen-title">
+        <p class="eyebrow reveal" data-el="Παροχές" data-en="Amenities">Παροχές</p>
+        <h2 class="sec-title reveal d1" data-el="Όλα όσα <em>χρειάζεστε</em>" data-en="Everything you <em>need</em>">Όλα όσα <em>χρειάζεστε</em></h2>
+        <p class="reveal d2" data-el="Όλο το κατάλυμα στη διάθεσή σας: 3 υπνοδωμάτια, 3 κρεβάτια, 2 μπάνια, 105 τ.μ. αυθεντικής Καρπάθικης φιλοξενίας με κάθε σύγχρονη άνεση." data-en="The entire property is yours: 3 bedrooms, 3 beds, 2 bathrooms, 105 m² of authentic Karpathian hospitality with every modern comfort.">Όλο το κατάλυμα στη διάθεσή σας: 3 υπνοδωμάτια, 3 κρεβάτια, 2 μπάνια, 105 τ.μ. αυθεντικής Καρπάθικης φιλοξενίας με κάθε σύγχρονη άνεση.</p>
+      </div>
+      <div class="amen-cols">
+        <div class="amen-cat reveal">
+          <h4 data-el="Κουζίνα" data-en="Kitchen">Κουζίνα</h4>
+          <ul>
+            <li data-el="Ψυγείο & Φούρνος" data-en="Fridge & Oven">Ψυγείο & Φούρνος</li>
+            <li data-el="Φούρνος μικροκυμάτων" data-en="Microwave">Φούρνος μικροκυμάτων</li>
+            <li data-el="Εστίες & Βραστήρας" data-en="Stove & Kettle">Εστίες & Βραστήρας</li>
+            <li data-el="Τραπέζι φαγητού" data-en="Dining table">Τραπέζι φαγητού</li>
+          </ul>
+        </div>
+        <div class="amen-cat reveal d1">
+          <h4 data-el="Μπάνιο" data-en="Bathroom">Μπάνιο</h4>
+          <ul>
+            <li data-el="Υδρομασάζ & Μπανιέρα" data-en="Jacuzzi & Bathtub">Υδρομασάζ & Μπανιέρα</li>
+            <li data-el="Ντουζιέρα" data-en="Shower">Ντουζιέρα</li>
+            <li data-el="Στεγνωτήρας μαλλιών" data-en="Hair dryer">Στεγνωτήρας μαλλιών</li>
+            <li data-el="Πετσέτες & Λευκά είδη" data-en="Towels & Linens">Πετσέτες & Λευκά είδη</li>
+          </ul>
+        </div>
+        <div class="amen-cat reveal">
+          <h4 data-el="Άνεση" data-en="Comfort">Άνεση</h4>
+          <ul>
+            <li data-el="Κλιματισμός & Θέρμανση" data-en="A/C & Heating">Κλιματισμός & Θέρμανση</li>
+            <li data-el="Δωρεάν Wi-Fi" data-en="Free Wi-Fi">Δωρεάν Wi-Fi</li>
+            <li data-el="Τηλεόραση" data-en="Television">Τηλεόραση</li>
+            <li data-el="Πλυντήριο ρούχων" data-en="Washing machine">Πλυντήριο ρούχων</li>
+          </ul>
+        </div>
+        <div class="amen-cat reveal d1">
+          <h4 data-el="Εξωτερικά" data-en="Outdoors">Εξωτερικά</h4>
+          <ul>
+            <li data-el="Πέτρινη αυλή & Κήπος" data-en="Stone courtyard & Garden">Πέτρινη αυλή & Κήπος</li>
+            <li data-el="Έπιπλα εξωτερικού χώρου" data-en="Outdoor furniture">Έπιπλα εξωτερικού χώρου</li>
+            <li data-el="Δωρεάν πάρκινγκ" data-en="Free parking">Δωρεάν πάρκινγκ</li>
+            <li data-el="Δεκτά κατοικίδια" data-en="Pets welcome">Δεκτά κατοικίδια</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section class="loc sec-pad" id="location">
+  <div class="wrap">
+    <div class="loc-grid">
+      <div class="loc-copy">
+        <p class="eyebrow reveal" data-el="Η τοποθεσία" data-en="The location">Η τοποθεσία</p>
+        <h2 class="sec-title reveal d1" data-el="Στην καρδιά του <span class='scr'>Απερίου</span>" data-en="In the heart of <span class='scr'>Apéri</span>">Στην καρδιά του <span class="scr">Απερίου</span></h2>
+        <p class="reveal d2" data-el="Το ήσυχο χωριό Απέρι σάς προσφέρει τοπικές ταβέρνες, καφενεία και έναν χαλαρό ρυθμό ζωής — μια αυθεντική γεύση της Καρπάθου. Μόλις 15 λεπτά με το αυτοκίνητο από τα Πηγάδια, την πρωτεύουσα του νησιού." data-en="The quiet village of Aperi offers local tavernas, cafés and a relaxed pace of life — a true taste of Karpathos. Just a 15-minute drive from Pigadia, the island's main town.">Το ήσυχο χωριό Απέρι σάς προσφέρει τοπικές ταβέρνες, καφενεία και έναν χαλαρό ρυθμό ζωής — μια αυθεντική γεύση της Καρπάθου. Μόλις 15 λεπτά με το αυτοκίνητο από τα Πηγάδια, την πρωτεύουσα του νησιού.</p>
+        <div class="dist-list reveal d2">
+          <div class="dist"><span class="name" data-el="Παραλία Αχάτα" data-en="Achata Beach">Παραλία Αχάτα</span><span class="km">4 km</span></div>
+          <div class="dist"><span class="name" data-el="Παραλία Βρόντης" data-en="Vrondi Beach">Παραλία Βρόντης</span><span class="km">4.8 km</span></div>
+          <div class="dist"><span class="name" data-el="Λαογραφικό Μουσείο" data-en="Folklore Museum">Λαογραφικό Μουσείο</span><span class="km">3.9 km</span></div>
+          <div class="dist"><span class="name" data-el="Λιμάνι Πηγάδια" data-en="Pigadia Port">Λιμάνι Πηγάδια</span><span class="km">8.8 km</span></div>
+          <div class="dist"><span class="name" data-el="Παραλία Κυρά Παναγιά" data-en="Kyra Panagia Beach">Παραλία Κυρά Παναγιά</span><span class="km">6 km</span></div>
+          <div class="dist"><span class="name" data-el="Αεροδρόμιο Καρπάθου" data-en="Karpathos Airport">Αεροδρόμιο Καρπάθου</span><span class="km">20 km</span></div>
+        </div>
+      </div>
+      <div class="map-card reveal d1">
+        <iframe src="https://www.google.com/maps?q=Aperi,Karpathos,857%2000,Greece&z=13&output=embed" loading="lazy" title="Thetida's Villa location in Aperi, Karpathos"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews sec-pad" id="reviews">
+  <div class="wrap">
+    <div class="rev-head">
+      <p class="eyebrow center reveal" data-el="Εμπειρίες επισκεπτών" data-en="Guest experiences">Εμπειρίες επισκεπτών</p>
+      <h2 class="sec-title reveal d1" data-el="Αγαπημένο από τους <em>επισκέπτες</em>" data-en="Loved by our <em>guests</em>">Αγαπημένο από τους <em>επισκέπτες</em></h2>
+      <div class="rev-stars reveal d2">★★★★★</div>
+    </div>
+  </div>
+  <div class="rev-track-wrap reveal">
+    <div class="rev-track" id="revTrack">
+      <!-- cards injected + duplicated by JS -->
+    </div>
+  </div>
+  <div class="rev-more reveal">
+    <a class="btn-ghost" href="https://www.google.com/travel/search?q=thetida%27s%20villa%20aperi%20karpathos" target="_blank" rel="noopener">
+      <span data-el="Περισσότερες κριτικές στο Google" data-en="More reviews on Google">Περισσότερες κριτικές στο Google</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- BOOK / CTA -->
+<section class="book sec-pad" id="book">
+  <div class="book-bg" style="background-image:url('https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/unnamed-144.jpg')"></div>
+  <div class="wrap">
+    <div class="book-inner">
+      <p class="eyebrow reveal" data-el="Κλείστε τη διαμονή σας" data-en="Reserve your stay">Κλείστε τη διαμονή σας</p>
+      <h2 class="reveal d1" data-el="Η <em>γαλήνη</em> σας περιμένει" data-en="Your <em>serenity</em> awaits">Η <em>γαλήνη</em> σας περιμένει</h2>
+      <p class="reveal d2" data-el="Περιβαλλόμενη από τη φύση και μόλις λίγα λεπτά από μία από τις πιο εντυπωσιακές παραλίες της Καρπάθου, η Thetida's Villa είναι η τέλεια απόδραση για όσους αναζητούν αυθεντικότητα και ηρεμία." data-en="Surrounded by nature and just minutes from one of Karpathos' most stunning beaches, Thetida's Villa is the perfect escape for those seeking authenticity and tranquility.">Περιβαλλόμενη από τη φύση και μόλις λίγα λεπτά από μία από τις πιο εντυπωσιακές παραλίες της Καρπάθου, η Thetida's Villa είναι η τέλεια απόδραση για όσους αναζητούν αυθεντικότητα και ηρεμία.</p>
+      <span class="book-stay reveal d2" data-el="Ελάχιστη διαμονή 6 νύχτες 🙏" data-en="Minimum stay 6 nights 🙏">Ελάχιστη διαμονή 6 νύχτες 🙏</span>
+      <div class="book-actions reveal d3">
+        <a class="btn-gold" href="tel:+306974643679">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.81.36 1.6.7 2.34a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.74-1.27a2 2 0 0 1 2.11-.45c.74.34 1.53.57 2.34.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span data-el="Καλέστε μας" data-en="Call us">Καλέστε μας</span>
+        </a>
+        <a class="btn-out" href="mailto:villathetiskarpathos@gmail.com">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16v16H4zM4 6l8 6 8-6"/></svg>
+          <span data-el="Στείλτε email" data-en="Send email">Στείλτε email</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <span class="brand-mark" style="width:46px;height:56px;display:inline-block">
+          <svg viewBox="0 0 90 108" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12,40 Q12,6 45,6 Q78,6 78,40 L78,98 L12,98 Z" fill="none" stroke="var(--gold)" stroke-width="3.5"/>
+            <path d="M19,45 h52 v7 h-52 z" fill="var(--teal-soft)"/>
+            <path d="M19,60 Q34,50 50,58 Q63,65 71,60 v20 h-52 z" fill="var(--ochre)"/>
+            <path d="M19,84 h52 v6 h-52 z" fill="var(--gold)"/>
+          </svg>
+        </span>
+        <div class="fb-name">Thetida's Villa</div>
+        <div class="fb-sub" data-el="πανοραμική θέα χωριού" data-en="panoramic village view">πανοραμική θέα χωριού</div>
+        <p data-el="Μια αυθεντική Καρπάθικη βίλα στο αμφιθεατρικό Απέρι, όπου το χωριό συναντά τον ορίζοντα." data-en="An authentic Karpathian villa in amphitheatric Aperi, where the village meets the horizon.">Μια αυθεντική Καρπάθικη βίλα στο αμφιθεατρικό Απέρι, όπου το χωριό συναντά τον ορίζοντα.</p>
+      </div>
+      <div class="foot-col">
+        <h5 data-el="Πλοήγηση" data-en="Explore">Πλοήγηση</h5>
+        <ul>
+          <li><a href="#about" data-el="Η Βίλα" data-en="The Villa">Η Βίλα</a></li>
+          <li><a href="#experience" data-el="Εμπειρία" data-en="Experience">Εμπειρία</a></li>
+          <li><a href="#spaces" data-el="Χώροι" data-en="Spaces">Χώροι</a></li>
+          <li><a href="#location" data-el="Τοποθεσία" data-en="Location">Τοποθεσία</a></li>
+          <li><a href="#reviews" data-el="Κριτικές" data-en="Reviews">Κριτικές</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5 data-el="Επικοινωνία" data-en="Contact">Επικοινωνία</h5>
+        <ul>
+          <li><a href="tel:+306974643679"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.81.36 1.6.7 2.34a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.74-1.27a2 2 0 0 1 2.11-.45c.74.34 1.53.57 2.34.7A2 2 0 0 1 22 16.92z"/></svg>697 464 3679</a></li>
+          <li><a href="mailto:villathetiskarpathos@gmail.com"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16v16H4zM4 6l8 6 8-6"/></svg>villathetiskarpathos@gmail.com</a></li>
+          <li><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-6-5.686-6-10a6 6 0 0 1 12 0c0 4.314-6 10-6 10z"/><circle cx="12" cy="11" r="2"/></svg><span data-el="Άγιος Βασίλειος, Απέρι, Κάρπαθος 857 00" data-en="Agios Vasilios, Aperi, Karpathos 857 00">Άγιος Βασίλειος, Απέρι, Κάρπαθος 857 00</span></span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>© <span id="year"></span> Thetida's Villa · <span class="lic" data-el="Αρ. αδείας: 00000060082" data-en="Licence no: 00000060082">Αρ. αδείας: 00000060082</span></p>
+      <p class="advon" data-el="Σχεδιασμός & κατασκευή από" data-en="Designed & built by">Σχεδιασμός & κατασκευή από <a href="https://www.advonmedia.com" target="_blank" rel="noopener">Advon Media</a></p>
+    </div>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lightbox">
+  <button class="lb-close" id="lbClose" aria-label="Close"></button>
+  <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 18l-6-6 6-6"/></svg></button>
+  <img id="lbImg" src="" alt="">
+  <button class="lb-nav lb-next" id="lbNext" aria-label="Next"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 18l6-6-6-6"/></svg></button>
+  <div class="lb-counter" id="lbCounter"></div>
+</div>
+
+<button class="totop" id="toTop" aria-label="Back to top"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+
+<script>
+/* ===== PRELOADER ===== */
+window.addEventListener('load',()=>{
+  setTimeout(()=>document.getElementById('preloader').classList.add('done'),1900);
+});
+
+/* ===== HEADER SCROLL + PROGRESS ===== */
+const header=document.getElementById('header');
+const progress=document.getElementById('progress');
+const toTop=document.getElementById('toTop');
+function onScroll(){
+  const y=window.scrollY;
+  header.classList.toggle('scrolled',y>60);
+  toTop.classList.toggle('show',y>600);
+  const h=document.documentElement.scrollHeight-window.innerHeight;
+  progress.style.width=(y/h*100)+'%';
+}
+window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+toTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+/* ===== MOBILE MENU ===== */
+const burger=document.getElementById('burger');
+const mobileMenu=document.getElementById('mobileMenu');
+const mobileClose=document.getElementById('mobileClose');
+function openMenu(){mobileMenu.classList.add('open');document.body.classList.add('no-scroll')}
+function closeMenu(){mobileMenu.classList.remove('open');document.body.classList.remove('no-scroll')}
+burger.addEventListener('click',openMenu);
+mobileClose.addEventListener('click',closeMenu);
+mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
+
+/* ===== LANGUAGE TOGGLE ===== */
+let lang='el';
+function setLang(l){
+  lang=l;
+  document.documentElement.lang=l;
+  document.querySelectorAll('[data-el]').forEach(el=>{
+    const val=l==='el'?el.getAttribute('data-el'):el.getAttribute('data-en');
+    if(val!==null) el.innerHTML=val;
+  });
+  document.getElementById('flagEl').classList.toggle('active',l==='el');
+  document.getElementById('flagEn').classList.toggle('active',l==='en');
+  document.getElementById('mFlagEl').classList.toggle('active',l==='el');
+  document.getElementById('mFlagEn').classList.toggle('active',l==='en');
+}
+document.getElementById('flagEl').addEventListener('click',()=>setLang('el'));
+document.getElementById('flagEn').addEventListener('click',()=>setLang('en'));
+document.getElementById('mFlagEl').addEventListener('click',()=>setLang('el'));
+document.getElementById('mFlagEn').addEventListener('click',()=>setLang('en'));
+
+/* ===== REVEAL ON SCROLL ===== */
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+},{threshold:0.12,rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.reveal,.reveal-img').forEach(el=>io.observe(el));
+
+/* ===== COUNTERS ===== */
+const counters=document.querySelectorAll('[data-count]');
+const cObs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const el=e.target;const target=+el.getAttribute('data-count');
+      const suffix=el.querySelector('.u')?'':'';
+      let cur=0;const step=Math.max(1,Math.ceil(target/45));
+      const t=setInterval(()=>{
+        cur+=step;if(cur>=target){cur=target;clearInterval(t)}
+        el.childNodes[0].nodeValue=cur;
+      },28);
+      cObs.unobserve(el);
+    }
+  });
+},{threshold:0.5});
+counters.forEach(c=>cObs.observe(c));
+
+/* ===== HERO PARALLAX ===== */
+const heroBg=document.querySelector('.hero-bg');
+window.addEventListener('scroll',()=>{
+  const y=window.scrollY;
+  if(y<window.innerHeight){heroBg.style.transform=`translateY(${y*0.4}px) scale(1.04)`;}
+},{passive:true});
+
+/* ===== REVIEWS ===== */
+const reviews=[
+  {t_el:"Ένα υπέροχο, ζεστό σπίτι με θέα στο χωριό του Απερίου. Καθαρό, άνετο και ευρύχωρο! Απολαύσαμε κάθε στιγμή της διαμονής μας.",t_en:"A gorgeous, cozy home overlooking the village of Aperi. Clean, comfortable and spacious! We enjoyed every moment staying there.",n:"Mary O.",src_el:"Google",src_en:"Google"},
+  {t_el:"Πανέμορφες παραλίες, φιλικοί άνθρωποι και μια θέα που δεν ξεχνιέται. Η βίλα ήταν ακριβώς όπως στις φωτογραφίες — ίσως και καλύτερη.",t_en:"Beautiful beaches, friendly people and a view you never forget. The villa was exactly as in the photos — perhaps even better.",n:"Anita van der Wel",src_el:"Google",src_en:"Google"},
+  {t_el:"Ένα αυθεντικό Καρπάθικο σπίτι με τόσο χαρακτήρα. Η αυλή με την ελιά έγινε το αγαπημένο μας μέρος κάθε πρωί.",t_en:"An authentic Karpathian home with so much character. The courtyard with the olive tree became our favourite spot every morning.",n:"Stella Glynou",src_el:"Google",src_en:"Google"},
+  {t_el:"Απόλυτη ηρεμία και ησυχία. Νιώσαμε σαν στο σπίτι μας, με όλη τη γαλήνη του χωριού γύρω μας. Ανυπομονούμε να επιστρέψουμε.",t_en:"Absolute peace and quiet. We felt right at home, with all the calm of the village around us. We can't wait to return.",n:"Παύλος-Σπύρος Κάρρας",src_el:"Google",src_en:"Google"},
+  {t_el:"Η τοποθεσία είναι μοναδική — αμφιθεατρική θέα στο χωριό και στη θάλασσα. Άριστη φιλοξενία από την αρχή μέχρι το τέλος.",t_en:"The location is unique — amphitheatric views of the village and the sea. Excellent hospitality from start to finish.",n:"Γιάννης Ορφανίδης",src_el:"Google",src_en:"Google"},
+  {t_el:"Καθαρό, παραδοσιακό και γεμάτο ζεστασιά. Το ηλιοβασίλεμα από τη βεράντα ήταν κάτι που θα θυμόμαστε για πάντα.",t_en:"Clean, traditional and full of warmth. The sunset from the terrace was something we will remember forever.",n:"Maria Katsouraki",src_el:"Google",src_en:"Google"}
+];
+function buildReviews(){
+  const track=document.getElementById('revTrack');
+  const make=(r)=>`<div class="rev-card">
+    <span class="quote-mark">"</span>
+    <div class="rev-stars-sm">★★★★★</div>
+    <p data-el="${r.t_el}" data-en="${r.t_en}">${lang==='el'?r.t_el:r.t_en}</p>
+    <div class="rev-foot">
+      <div class="rev-av">${r.n.charAt(0)}</div>
+      <div class="rev-meta"><div class="nm">${r.n}</div><div class="src" data-el="${r.src_el}" data-en="${r.src_en}">${r.src_el}</div></div>
+    </div>
+  </div>`;
+  track.innerHTML=(reviews.map(make).join('')) + (reviews.map(make).join(''));
+}
+buildReviews();
+
+/* ===== LIGHTBOX (gallery) ===== */
+const zoomables=Array.from(document.querySelectorAll('.zoomable'));
+const lb=document.getElementById('lightbox');
+const lbImg=document.getElementById('lbImg');
+const lbCounter=document.getElementById('lbCounter');
+let curIdx=0;
+function openLb(i){
+  curIdx=i;
+  lbImg.src=zoomables[i].src;
+  lbImg.alt=zoomables[i].alt||'';
+  lbCounter.textContent=(i+1)+' / '+zoomables.length;
+  lb.classList.add('open');document.body.classList.add('no-scroll');
+}
+function closeLb(){lb.classList.remove('open');document.body.classList.remove('no-scroll')}
+function nav(d){curIdx=(curIdx+d+zoomables.length)%zoomables.length;openLb(curIdx)}
+zoomables.forEach((img,i)=>{img.addEventListener('click',()=>openLb(i))});
+document.getElementById('lbClose').addEventListener('click',closeLb);
+document.getElementById('lbPrev').addEventListener('click',e=>{e.stopPropagation();nav(-1)});
+document.getElementById('lbNext').addEventListener('click',e=>{e.stopPropagation();nav(1)});
+lb.addEventListener('click',e=>{if(e.target===lb)closeLb()});
+document.addEventListener('keydown',e=>{
+  if(!lb.classList.contains('open'))return;
+  if(e.key==='Escape')closeLb();
+  if(e.key==='ArrowLeft')nav(-1);
+  if(e.key==='ArrowRight')nav(1);
+});
+// swipe
+let tx=0;
+lb.addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+lb.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50)nav(dx>0?-1:1)},{passive:true});
+
+/* ===== YEAR ===== */
+document.getElementById('year').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
