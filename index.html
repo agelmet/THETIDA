@@ -50,42 +50,50 @@ a{text-decoration:none;color:inherit}
   transition:opacity 1s ease,visibility 1s ease;
 }
 #preloader.done{opacity:0;visibility:hidden}
-.pre-logo{
-  width:210px;max-width:62vw;height:auto;
-  opacity:0;transform:translateY(14px) scale(.96);
-  animation:preLogo 1.3s cubic-bezier(.22,1,.36,1) .2s forwards;
+.pre-window{
+  width:180px;height:216px;position:relative;
 }
-@keyframes preLogo{to{opacity:1;transform:translateY(0) scale(1)}}
-.pre-line{
-  width:0;height:1px;background:var(--gold);margin-top:22px;
-  animation:preLine 1.1s ease .9s forwards;
+.pre-window svg{width:100%;height:100%;overflow:visible}
+.pre-arch{
+  fill:none;stroke:#4a8a9a;stroke-width:3;
+  stroke-dasharray:340;stroke-dashoffset:340;
+  animation:draw 1.6s ease forwards;
 }
-@keyframes preLine{to{width:120px}}
+.pre-fill{opacity:0;animation:fadeFill 1s ease .9s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes fadeFill{to{opacity:1}}
+.pre-text{
+  font-family:var(--display);font-weight:300;
+  letter-spacing:.45em;font-size:.86rem;color:var(--teal-deep);
+  margin-top:34px;text-transform:uppercase;
+  opacity:0;animation:fadeUp 1s ease 1.2s forwards;padding-left:.45em;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
 /* ============ NAV ============ */
 header{
   position:fixed;top:0;left:0;right:0;z-index:1000;
-  padding:26px clamp(20px,5vw,60px);
+  padding:16px clamp(20px,5vw,60px);
   display:flex;align-items:center;justify-content:space-between;
   transition:background .5s ease,padding .5s ease,box-shadow .5s ease;
 }
 header.scrolled{
   background:rgba(246,241,230,.92);
   backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-  padding:14px clamp(20px,5vw,60px);
+  padding:10px clamp(20px,5vw,60px);
   box-shadow:0 6px 30px rgba(29,91,110,.08);
 }
 .brand{display:flex;align-items:center;gap:13px;z-index:1001}
 .brand-logo{
-  height:54px;width:auto;display:block;transition:all .5s ease;
+  height:88px;width:auto;display:block;transition:all .5s ease;
 }
-header.scrolled .brand-logo{height:46px}
-/* on transparent (over hero) the white-bg logo needs a soft chip so it reads */
+header.scrolled .brand-logo{height:70px}
+/* over hero (transparent header): soft chip so the dark wordmark reads */
 header:not(.scrolled) .brand-logo{
-  background:rgba(246,241,230,.92);padding:6px 12px;border-radius:8px;
-  box-shadow:0 6px 20px rgba(15,58,71,.18);height:60px;
+  background:rgba(246,241,230,.9);padding:8px 16px;border-radius:10px;
+  box-shadow:0 8px 26px rgba(15,58,71,.2);height:94px;
 }
-nav.desktop{display:flex;align-items:center;gap:clamp(18px,2.4vw,36px)}
+nav.desktop{display:flex;align-items:center;gap:clamp(14px,2vw,28px)}
 nav.desktop a{
   font-family:var(--display);font-weight:300;font-size:.82rem;
   letter-spacing:.13em;text-transform:uppercase;color:var(--cream);
@@ -110,9 +118,9 @@ nav.desktop a:hover::after{width:100%}
 
 .nav-cta{
   font-family:var(--display);font-weight:300;font-size:.78rem;
-  letter-spacing:.13em;text-transform:uppercase;
+  letter-spacing:.13em;text-transform:uppercase;white-space:nowrap;
   border:1px solid var(--gold);color:var(--gold)!important;
-  padding:9px 20px;border-radius:40px;transition:all .4s ease;margin-left:6px;
+  padding:11px 28px;border-radius:40px;transition:all .4s ease;margin-left:10px;
 }
 .nav-cta::after{display:none}
 .nav-cta:hover{background:var(--gold);color:var(--teal-deep)!important}
@@ -161,7 +169,7 @@ header.scrolled .burger span{background:var(--teal-deep)}
 /* ============ HERO ============ */
 .hero{
   position:relative;height:100vh;min-height:620px;
-  display:flex;align-items:center;justify-content:center;
+  display:flex;align-items:center;justify-content:flex-start;
   overflow:hidden;
 }
 .hero-bg{
@@ -175,23 +183,26 @@ header.scrolled .burger span{background:var(--teal-deep)}
 @keyframes heroZoom{to{transform:scale(1)}}
 .hero-bg::after{
   content:'';position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(15,58,71,.5) 0%,rgba(15,58,71,.15) 40%,rgba(15,58,71,.55) 100%);
+  background:linear-gradient(105deg,rgba(11,42,52,.82) 0%,rgba(13,48,59,.6) 34%,rgba(15,58,71,.18) 62%,rgba(15,58,71,.32) 100%);
 }
 .hero-content{
-  position:relative;z-index:3;text-align:center;color:var(--cream);
-  padding:0 24px;max-width:920px;
+  position:relative;z-index:3;text-align:left;color:var(--cream);
+  padding:0 clamp(24px,6vw,90px);max-width:880px;margin-top:40px;
 }
 .hero-eyebrow{
-  font-family:var(--display);font-weight:300;letter-spacing:.5em;
+  font-family:var(--display);font-weight:300;letter-spacing:.42em;
   text-transform:uppercase;font-size:clamp(.62rem,1.6vw,.8rem);
-  margin-bottom:26px;padding-left:.5em;
+  margin-bottom:24px;padding-left:.42em;
   opacity:0;animation:heroFade 1.2s ease 1.6s forwards;
+  display:flex;align-items:center;gap:16px;
 }
+.hero-eyebrow::before{content:'';width:46px;height:1px;background:var(--gold)}
 .hero-eyebrow span{display:inline-block;color:var(--gold)}
 .hero h1{
   font-family:var(--serif);font-weight:300;
-  font-size:clamp(3.2rem,11vw,8rem);line-height:.92;
-  letter-spacing:.01em;margin-bottom:8px;
+  font-size:clamp(3rem,10vw,7.4rem);line-height:.94;
+  letter-spacing:.01em;margin-bottom:10px;
+  text-shadow:0 4px 40px rgba(8,28,35,.4);
 }
 .hero h1 .line{display:block;overflow:hidden}
 .hero h1 .line span{
@@ -202,22 +213,28 @@ header.scrolled .burger span{background:var(--teal-deep)}
 .hero h1 .line:nth-child(2) span{animation-delay:.72s}
 @keyframes heroRise{to{transform:translateY(0)}}
 .hero-script{
-  font-family:var(--script);font-size:clamp(1.5rem,4.5vw,2.6rem);
-  color:var(--gold);margin-top:6px;
+  font-family:var(--script);font-size:clamp(1.6rem,4.6vw,2.8rem);
+  color:var(--gold);margin-top:8px;
   opacity:0;animation:heroFade 1.4s ease 1.5s forwards;
 }
-.hero-loc{
-  font-family:var(--display);font-weight:300;letter-spacing:.32em;
-  text-transform:uppercase;font-size:clamp(.66rem,1.8vw,.82rem);
-  margin-top:26px;opacity:0;animation:heroFade 1.2s ease 1.9s forwards;padding-left:.32em;
+.hero-lead{
+  font-family:var(--serif);font-weight:300;font-size:clamp(1.05rem,2vw,1.35rem);
+  color:var(--cream);max-width:46ch;margin-top:22px;line-height:1.6;
+  opacity:0;animation:heroFade 1.3s ease 1.85s forwards;
 }
-.hero-loc::before,.hero-loc::after{
-  content:'';display:inline-block;width:30px;height:1px;
-  background:var(--gold);vertical-align:middle;margin:0 16px;
+.hero-loc{
+  font-family:var(--display);font-weight:300;letter-spacing:.3em;
+  text-transform:uppercase;font-size:clamp(.66rem,1.8vw,.82rem);
+  margin-top:28px;opacity:0;animation:heroFade 1.2s ease 2s forwards;padding-left:.3em;
+  display:flex;align-items:center;gap:0;
+}
+.hero-loc::after{
+  content:'';display:inline-block;width:40px;height:1px;
+  background:var(--gold);margin-left:18px;
 }
 @keyframes heroFade{to{opacity:1}}
 .scroll-hint{
-  position:absolute;bottom:34px;left:50%;transform:translateX(-50%);z-index:3;
+  position:absolute;bottom:34px;left:clamp(24px,6vw,90px);z-index:3;
   display:flex;flex-direction:column;align-items:center;gap:10px;
   opacity:0;animation:heroFade 1.2s ease 2.3s forwards;
 }
@@ -586,6 +603,28 @@ footer{background:#16424f;color:var(--cream);padding:80px 0 0}
 @media(max-width:768px){
   nav.desktop{display:none}
   .burger{display:flex}
+  /* hero: show image fuller, less zoom/crop */
+  header{background:rgba(246,241,230,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 4px 20px rgba(29,91,110,.08)}
+  header .burger span{background:var(--teal-deep)}
+  header:not(.scrolled) .brand-logo{background:none;box-shadow:none;padding:0;height:72px}
+  .brand-logo{height:72px}
+  .hero{height:auto;min-height:auto;align-items:stretch;flex-direction:column}
+  .hero-bg{
+    position:relative;width:100%;aspect-ratio:4/3;flex:none;
+    background-size:cover;background-position:60% 45%;
+    transform:none!important;animation:none;margin-top:84px;
+  }
+  .hero-bg::after{background:linear-gradient(180deg,rgba(11,42,52,.25) 0%,rgba(11,42,52,.05) 45%,rgba(11,42,52,.55) 100%)}
+  .hero-content{
+    position:relative;left:auto;right:auto;bottom:auto;top:auto;
+    margin-top:0;padding:30px 22px 36px;max-width:100%;
+    background:var(--teal-deep);
+  }
+  .hero h1{font-size:clamp(2.8rem,15vw,3.8rem);text-shadow:none}
+  .hero-eyebrow{margin-bottom:18px}
+  .hero-script{font-size:1.5rem}
+  .hero-lead{font-size:1rem;max-width:100%}
+  .scroll-hint{display:none}
   .slider-stage{height:clamp(300px,46vh,440px)}
   .slide-arrow{width:44px;height:44px}
   .slide-prev{left:10px}.slide-next{right:10px}
@@ -610,8 +649,18 @@ footer{background:#16424f;color:var(--cream);padding:80px 0 0}
 
 <!-- PRELOADER -->
 <div id="preloader">
-  <img class="pre-logo" src="https://github.com/agelmet/THETIDA/blob/main/ogooss.jpg?raw=true" alt="Thetida's Villa">
-  <div class="pre-line"></div>
+  <div class="pre-window">
+    <svg viewBox="0 0 90 108">
+      <path class="pre-arch" d="M12,40 Q12,6 45,6 Q78,6 78,40 L78,98 L12,98 Z"/>
+      <g class="pre-fill">
+        <path d="M20,40 Q35,30 50,38 Q62,44 70,40 v6 h-50 z" fill="#1d5b6e"/>
+        <path d="M20,50 h50 v8 h-50 z" fill="#7fb0bc"/>
+        <path d="M20,62 Q35,52 50,60 Q62,66 70,62 v18 h-50 z" fill="#c79a1f"/>
+        <path d="M20,82 h50 v6 h-50 z" fill="#d9b740"/>
+      </g>
+    </svg>
+  </div>
+  <div class="pre-text">Thetida's Villa</div>
 </div>
 
 <div class="progress" id="progress"></div>
@@ -619,7 +668,7 @@ footer{background:#16424f;color:var(--cream);padding:80px 0 0}
 <!-- HEADER -->
 <header id="header">
   <a href="#top" class="brand">
-    <img class="brand-logo" src="https://github.com/agelmet/THETIDA/blob/main/ogooss.jpg?raw=true" alt="Thetida's Villa — panoramic village view, Apéri Karpathos">
+    <img class="brand-logo" src="https://raw.githubusercontent.com/agelmet/THETIDA/07f4daa03be10f92bd6adae15da7b2079011ce0d/ogooss.png" alt="Thetida's Villa — panoramic village view, Apéri Karpathos">
   </a>
   <nav class="desktop">
     <a href="#about" data-el="Η Βίλα" data-en="The Villa">Η Βίλα</a>
@@ -655,12 +704,13 @@ footer{background:#16424f;color:var(--cream);padding:80px 0 0}
 <section class="hero" id="top">
   <div class="hero-bg"></div>
   <div class="hero-content">
-    <p class="hero-eyebrow"><span>✦</span>&nbsp;&nbsp;&nbsp;<span data-el="Απέρι · Κάρπαθος" data-en="Apéri · Karpathos">Απέρι · Κάρπαθος</span>&nbsp;&nbsp;&nbsp;<span>✦</span></p>
+    <p class="hero-eyebrow"><span data-el="Απέρι · Κάρπαθος" data-en="Apéri · Karpathos">Απέρι · Κάρπαθος</span></p>
     <h1>
       <span class="line"><span>Thetida's</span></span>
       <span class="line"><span>Villa</span></span>
     </h1>
-    <p class="hero-script" data-el="όπου το χωριό συναντά τον ορίζοντα" data-en="where the village meets the horizon">όπου το χωριό συναντά τον ορίζοντα</p>
+    <p class="hero-script" data-el="ψηλά στο χωριό, αγκαλιά με τη θέα" data-en="high in the village, embraced by the view">ψηλά στο χωριό, αγκαλιά με τη θέα</p>
+    <p class="hero-lead" data-el="Μια παραδοσιακή καρπάθικη βίλα στο πιο αμφιθεατρικό σημείο του Απερίου, με πανοραμική θέα στο χωριό, τα βουνά και τη θάλασσα." data-en="A traditional Karpathian villa at the most amphitheatric point of Aperi, with panoramic views of the village, the mountains and the sea.">Μια παραδοσιακή καρπάθικη βίλα στο πιο αμφιθεατρικό σημείο του Απερίου, με πανοραμική θέα στο χωριό, τα βουνά και τη θάλασσα.</p>
     <p class="hero-loc" data-el="Πανοραμική θέα χωριού" data-en="Panoramic Village View">Πανοραμική θέα χωριού</p>
   </div>
   <div class="scroll-hint">
@@ -675,8 +725,12 @@ footer{background:#16424f;color:var(--cream);padding:80px 0 0}
     <span data-el="Αυθεντική Καρπάθικη Αρχιτεκτονική" data-en="Authentic Karpathian Architecture">Αυθεντική Καρπάθικη Αρχιτεκτονική</span>
     <span data-el="Ιδιωτικό Τζακούζι" data-en="Private Jacuzzi">Ιδιωτικό Τζακούζι</span>
     <span data-el="Πέτρινη Αυλή με Αιωνόβια Ελιά" data-en="Stone Courtyard with Ancient Olive">Πέτρινη Αυλή με Αιωνόβια Ελιά</span>
-    <span data-el="Θέα στη Θάλασσα & στο Βουνό" data-en="Sea & Mountain Views">Θέα στη Θάλασσα & στο Βουνό</span>
-    <span data-el="3 Υπνοδωμάτια · 105τμ" data-en="3 Bedrooms · 105m²">3 Υπνοδωμάτια · 105τμ</span>
+    <span data-el="Πανοραμική Θέα σε Θάλασσα & Βουνό" data-en="Panoramic Sea & Mountain Views">Πανοραμική Θέα σε Θάλασσα & Βουνό</span>
+    <span data-el="3 Υπνοδωμάτια · 105 τ.μ." data-en="3 Bedrooms · 105 m²">3 Υπνοδωμάτια · 105 τ.μ.</span>
+    <span data-el="Πλήρως Εξοπλισμένη Κουζίνα" data-en="Fully Equipped Kitchen">Πλήρως Εξοπλισμένη Κουζίνα</span>
+    <span data-el="Δωρεάν Wi-Fi & Πάρκινγκ" data-en="Free Wi-Fi & Parking">Δωρεάν Wi-Fi & Πάρκινγκ</span>
+    <span data-el="Δεκτά Κατοικίδια" data-en="Pets Welcome">Δεκτά Κατοικίδια</span>
+    <span data-el="Στην Καρδιά του Απερίου" data-en="In the Heart of Aperi">Στην Καρδιά του Απερίου</span>
   </div>
 </div>
 
@@ -710,11 +764,11 @@ footer{background:#16424f;color:var(--cream);padding:80px 0 0}
 <section class="stats sec-pad">
   <div class="wrap">
     <div class="stats-grid">
-      <div class="reveal"><div class="stat-num" data-count="3">0</div><div class="stat-label" data-el="Υπνοδωμάτια" data-en="Bedrooms">Υπνοδωμάτια</div></div>
+      <div class="reveal"><div class="stat-num"><span class="cval" data-count="3">0</span></div><div class="stat-label" data-el="Υπνοδωμάτια" data-en="Bedrooms">Υπνοδωμάτια</div></div>
       <div class="stat-sep"></div>
-      <div class="reveal d1"><div class="stat-num" data-count="105"><span class="u"></span></div><div class="stat-label" data-el="Τετραγωνικά μέτρα" data-en="Square metres">Τετραγωνικά μέτρα</div></div>
+      <div class="reveal d1"><div class="stat-num"><span class="cval" data-count="105">0</span><span class="u">&nbsp;τ.μ.</span></div><div class="stat-label" data-el="Τετραγωνικά μέτρα" data-en="Square metres">Τετραγωνικά μέτρα</div></div>
       <div class="stat-sep"></div>
-      <div class="reveal d2"><div class="stat-num" data-count="2">0</div><div class="stat-label" data-el="Μπάνια" data-en="Bathrooms">Μπάνια</div></div>
+      <div class="reveal d2"><div class="stat-num"><span class="cval" data-count="2">0</span></div><div class="stat-label" data-el="Μπάνια" data-en="Bathrooms">Μπάνια</div></div>
       <div class="stat-sep"></div>
       <div class="reveal d3"><div class="stat-num">∞</div><div class="stat-label" data-el="Θέα & Γαλήνη" data-en="View & Serenity">Θέα & Γαλήνη</div></div>
     </div>
@@ -875,7 +929,7 @@ footer{background:#16424f;color:var(--cream);padding:80px 0 0}
         </div>
       </div>
       <div class="map-card reveal d1">
-        <iframe src="https://www.google.com/maps?q=Aperi,Karpathos,857%2000,Greece&z=13&output=embed" loading="lazy" title="Thetida's Villa location in Aperi, Karpathos"></iframe>
+        <iframe src="https://maps.google.com/maps?q=Thetidas%20villa%2C%20Epar.Od.%20Aperiou-Spoas%2C%20Aperi%2C%20Karpathos%20857%2000&t=&z=15&ie=UTF8&iwloc=&output=embed" loading="lazy" title="Thetida's Villa location in Aperi, Karpathos"></iframe>
       </div>
     </div>
   </div>
@@ -911,7 +965,7 @@ footer{background:#16424f;color:var(--cream);padding:80px 0 0}
       <p class="eyebrow reveal" data-el="Κλείστε τη διαμονή σας" data-en="Reserve your stay">Κλείστε τη διαμονή σας</p>
       <h2 class="reveal d1" data-el="Η <em>γαλήνη</em> σας περιμένει" data-en="Your <em>serenity</em> awaits">Η <em>γαλήνη</em> σας περιμένει</h2>
       <p class="reveal d2" data-el="Περιβαλλόμενη από τη φύση και μόλις λίγα λεπτά από μία από τις πιο εντυπωσιακές παραλίες της Καρπάθου, η Thetida's Villa είναι η τέλεια απόδραση για όσους αναζητούν αυθεντικότητα και ηρεμία." data-en="Surrounded by nature and just minutes from one of Karpathos' most stunning beaches, Thetida's Villa is the perfect escape for those seeking authenticity and tranquility.">Περιβαλλόμενη από τη φύση και μόλις λίγα λεπτά από μία από τις πιο εντυπωσιακές παραλίες της Καρπάθου, η Thetida's Villa είναι η τέλεια απόδραση για όσους αναζητούν αυθεντικότητα και ηρεμία.</p>
-      <span class="book-stay reveal d2" data-el="Ελάχιστη διαμονή 6 νύχτες 🙏" data-en="Minimum stay 6 nights 🙏">Ελάχιστη διαμονή 6 νύχτες 🙏</span>
+      <span class="book-stay reveal d2" data-el="Ελάχιστη διαμονή 6 νύχτες" data-en="Minimum stay 6 nights">Ελάχιστη διαμονή 6 νύχτες</span>
       <div class="book-actions reveal d3">
         <a class="btn-gold" href="https://www.google.com/travel/search?ts=CAESCgoCCAMKAggDEAAaUAoyEi4yJTB4MTQ5NmE5ZDY3MDY1ZmJjZDoweDZlZDdiZDgxYmRjNGM3Mzg6BUFwZXJpGgASGhIUCgcI6g8QBxgHEgcI6g8QBxgRGAoyAggBKgkKBToDRVVSGgA&qs=CAEyJ0Noa0lrYXZIaDZLYWw2elRBUm9NTDJjdk1YRTFZbTFqTW1wNkVBRTgNSAA&utm_campaign=sharing&utm_medium=link_btn&utm_source=htls" target="_blank" rel="noopener">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M8 2v3M16 2v3M3.5 8h17M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zM9 13l2 2 4-4"/></svg>
@@ -935,8 +989,8 @@ footer{background:#16424f;color:var(--cream);padding:80px 0 0}
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <img src="https://github.com/agelmet/THETIDA/blob/main/ogooss.jpg?raw=true" alt="Thetida's Villa" style="width:200px;max-width:70%;height:auto;background:var(--cream);padding:14px 18px;border-radius:10px;display:block">
-        <p style="margin-top:22px" data-el="Μια αυθεντική καρπάθικη βίλα στο αμφιθεατρικό Απέρι, εκεί όπου το χωριό συναντά τον ορίζοντα." data-en="An authentic Karpathian villa in amphitheatric Aperi, where the village meets the horizon.">Μια αυθεντική καρπάθικη βίλα στο αμφιθεατρικό Απέρι, εκεί όπου το χωριό συναντά τον ορίζοντα.</p>
+        <img src="https://raw.githubusercontent.com/agelmet/THETIDA/07f4daa03be10f92bd6adae15da7b2079011ce0d/ogooss.png" alt="Thetida's Villa" style="width:300px;max-width:88%;height:auto;background:var(--cream);padding:22px 26px;border-radius:14px;display:block">
+        <p style="margin-top:24px" data-el="Μια αυθεντική καρπάθικη βίλα στο αμφιθεατρικό Απέρι, εκεί όπου το χωριό συναντά τον ορίζοντα." data-en="An authentic Karpathian villa in amphitheatric Aperi, where the village meets the horizon.">Μια αυθεντική καρπάθικη βίλα στο αμφιθεατρικό Απέρι, εκεί όπου το χωριό συναντά τον ορίζοντα.</p>
       </div>
       <div class="foot-col">
         <h5 data-el="Πλοήγηση" data-en="Explore">Πλοήγηση</h5>
@@ -1031,16 +1085,15 @@ const io=new IntersectionObserver((entries)=>{
 document.querySelectorAll('.reveal,.reveal-img').forEach(el=>io.observe(el));
 
 /* ===== COUNTERS ===== */
-const counters=document.querySelectorAll('[data-count]');
+const counters=document.querySelectorAll('.cval[data-count]');
 const cObs=new IntersectionObserver((entries)=>{
   entries.forEach(e=>{
     if(e.isIntersecting){
       const el=e.target;const target=+el.getAttribute('data-count');
-      const suffix=el.querySelector('.u')?'':'';
       let cur=0;const step=Math.max(1,Math.ceil(target/45));
       const t=setInterval(()=>{
         cur+=step;if(cur>=target){cur=target;clearInterval(t)}
-        el.childNodes[0].nodeValue=cur;
+        el.textContent=cur;
       },28);
       cObs.unobserve(el);
     }
@@ -1048,9 +1101,16 @@ const cObs=new IntersectionObserver((entries)=>{
 },{threshold:0.5});
 counters.forEach(c=>cObs.observe(c));
 
-/* ===== HERO PARALLAX ===== */
+/* ===== MARQUEE (duplicate for seamless loop) ===== */
+(function(){
+  const track=document.getElementById('marquee');
+  if(track){track.innerHTML=track.innerHTML+track.innerHTML;}
+})();
+
+/* ===== HERO PARALLAX (desktop only) ===== */
 const heroBg=document.querySelector('.hero-bg');
 window.addEventListener('scroll',()=>{
+  if(window.innerWidth<=768)return;
   const y=window.scrollY;
   if(y<window.innerHeight){heroBg.style.transform=`translateY(${y*0.4}px) scale(1.04)`;}
 },{passive:true});
@@ -1142,7 +1202,6 @@ const galleries={
       {s:RAW1+'unnamed-147.jpg', el:'Δεύτερο υπνοδωμάτιο', en:'Second bedroom'},
       {s:RAW1+'unnamed-150.jpg', el:'Υπνοδωμάτιο', en:'Bedroom'},
       {s:RAW1+'unnamed-151.jpg', el:'Λεπτομέρεια υπνοδωματίου', en:'Bedroom detail'},
-      {s:RAW2+'663082565.jpg', el:'Υπνοδωμάτιο', en:'Bedroom'},
       {s:RAW2+'689846057.jpg', el:'Υπνοδωμάτιο', en:'Bedroom'},
       {s:RAW2+'689846101.jpg', el:'Υπνοδωμάτιο', en:'Bedroom'},
       {s:RAW2+'689846136.jpg', el:'Υπνοδωμάτιο', en:'Bedroom'},
