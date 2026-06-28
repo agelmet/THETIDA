@@ -50,25 +50,17 @@ a{text-decoration:none;color:inherit}
   transition:opacity 1s ease,visibility 1s ease;
 }
 #preloader.done{opacity:0;visibility:hidden}
-.pre-window{
-  width:90px;height:108px;position:relative;
+.pre-logo{
+  width:210px;max-width:62vw;height:auto;
+  opacity:0;transform:translateY(14px) scale(.96);
+  animation:preLogo 1.3s cubic-bezier(.22,1,.36,1) .2s forwards;
 }
-.pre-window svg{width:100%;height:100%;overflow:visible}
-.pre-arch{
-  fill:none;stroke:var(--teal);stroke-width:3;
-  stroke-dasharray:340;stroke-dashoffset:340;
-  animation:draw 1.6s ease forwards;
+@keyframes preLogo{to{opacity:1;transform:translateY(0) scale(1)}}
+.pre-line{
+  width:0;height:1px;background:var(--gold);margin-top:22px;
+  animation:preLine 1.1s ease .9s forwards;
 }
-.pre-fill{opacity:0;animation:fadeFill 1s ease .9s forwards}
-@keyframes draw{to{stroke-dashoffset:0}}
-@keyframes fadeFill{to{opacity:1}}
-.pre-text{
-  font-family:var(--display);font-weight:300;
-  letter-spacing:.5em;font-size:.7rem;color:var(--teal-deep);
-  margin-top:26px;text-transform:uppercase;
-  opacity:0;animation:fadeUp 1s ease 1.2s forwards;padding-left:.5em;
-}
-@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes preLine{to{width:120px}}
 
 /* ============ NAV ============ */
 header{
@@ -84,18 +76,14 @@ header.scrolled{
   box-shadow:0 6px 30px rgba(29,91,110,.08);
 }
 .brand{display:flex;align-items:center;gap:13px;z-index:1001}
-.brand-mark{width:38px;height:46px;flex-shrink:0}
-.brand-mark svg{width:100%;height:100%}
-.brand-name{
-  font-family:var(--display);font-weight:300;
-  font-size:1.18rem;letter-spacing:.04em;color:var(--teal-deep);
-  line-height:1;transition:color .5s ease;
+.brand-logo{
+  height:54px;width:auto;display:block;transition:all .5s ease;
 }
-header:not(.scrolled) .brand-name{color:var(--cream)}
-header:not(.scrolled) .brand-stroke{stroke:var(--cream)}
-.brand-sub{
-  display:block;font-family:var(--script);font-size:.74rem;
-  color:var(--gold);letter-spacing:.02em;margin-top:1px;
+header.scrolled .brand-logo{height:46px}
+/* on transparent (over hero) the white-bg logo needs a soft chip so it reads */
+header:not(.scrolled) .brand-logo{
+  background:rgba(246,241,230,.92);padding:6px 12px;border-radius:8px;
+  box-shadow:0 6px 20px rgba(15,58,71,.18);height:60px;
 }
 nav.desktop{display:flex;align-items:center;gap:clamp(18px,2.4vw,36px)}
 nav.desktop a{
@@ -357,74 +345,83 @@ section{position:relative}
 .feat h3{font-family:var(--serif);font-weight:400;font-size:1.5rem;color:var(--teal-deep);margin-bottom:10px}
 .feat p{color:var(--ink-soft);font-weight:300;font-size:1rem;line-height:1.6}
 
-/* ============ GALLERY SECTIONS ============ */
+/* ============ GALLERY / SLIDERS ============ */
 .gallery-sec{background:var(--cream)}
 .gallery-sec.alt{background:var(--cream-deep)}
-.gal-head{text-align:center;margin-bottom:60px}
+.gal-head{text-align:center;margin-bottom:56px}
 .gal-head .lead{margin:18px auto 0}
 
-/* masonry-ish grid */
-.gal-grid{display:grid;gap:14px}
-.g-out{grid-template-columns:repeat(12,1fr);grid-auto-rows:minmax(140px,auto)}
-.gal-item{
-  overflow:hidden;cursor:pointer;position:relative;background:var(--sage);
-  border-radius:2px;
+.slider-block{margin-bottom:clamp(48px,7vw,80px)}
+.slider-block:last-child{margin-bottom:0}
+.slider-label{
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:16px;margin-bottom:26px;
 }
-.gal-item img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s cubic-bezier(.22,1,.36,1)}
-.gal-item:hover img{transform:scale(1.08)}
-.gal-item::after{
-  content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(15,58,71,.4),transparent 55%);
-  opacity:0;transition:opacity .5s ease;
+.slider-label .sl-left{display:flex;align-items:center;gap:14px}
+.slider-label .eyebrow{margin-bottom:0}
+.sl-count{
+  font-family:var(--display);font-weight:300;letter-spacing:.18em;
+  font-size:.72rem;color:var(--ink-soft);text-transform:uppercase;
 }
-.gal-item:hover::after{opacity:1}
-.gal-item .zoom{
-  position:absolute;bottom:16px;right:16px;width:42px;height:42px;
-  border:1px solid var(--cream);border-radius:50%;display:flex;align-items:center;justify-content:center;
-  color:var(--cream);opacity:0;transform:scale(.6) rotate(-20deg);transition:all .5s ease;z-index:2;
+.slider{
+  position:relative;background:#11333d;border-radius:6px;overflow:hidden;
+  box-shadow:0 24px 60px rgba(15,58,71,.18);
 }
-.gal-item:hover .zoom{opacity:1;transform:scale(1) rotate(0)}
-.gal-item .cap{
-  position:absolute;bottom:16px;left:18px;z-index:2;color:var(--cream);
-  font-family:var(--display);font-weight:300;letter-spacing:.18em;text-transform:uppercase;font-size:.66rem;
-  opacity:0;transform:translateY(10px);transition:all .5s ease;
+.slider-stage{
+  position:relative;width:100%;
+  height:clamp(380px,58vh,640px);
+  display:flex;align-items:center;justify-content:center;
 }
-.gal-item:hover .cap{opacity:1;transform:translateY(0)}
-
-/* feature pair (two big images) */
-.gal-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
-.gal-pair .gal-item{aspect-ratio:16/11}
-
-/* span helpers for outside grid */
-.s-tall{grid-column:span 5;grid-row:span 2}
-.s-wide{grid-column:span 7;grid-row:span 2}
-.s-sq{grid-column:span 4;grid-row:span 2}
-.s-sm{grid-column:span 4;grid-row:span 2}
-.s-half{grid-column:span 6;grid-row:span 2}
-.s-6-2{grid-column:span 6;grid-row:span 2}
-
-/* interior grid */
-.g-in{grid-template-columns:repeat(6,1fr);grid-auto-rows:200px}
-.i-a{grid-column:span 4;grid-row:span 2}
-.i-b{grid-column:span 2;grid-row:span 1}
-.i-c{grid-column:span 2;grid-row:span 1}
-.i-d{grid-column:span 2;grid-row:span 2}
-.i-e{grid-column:span 2;grid-row:span 2}
-.i-f{grid-column:span 2;grid-row:span 2}
-.i-g{grid-column:span 3;grid-row:span 2}
-.i-h{grid-column:span 3;grid-row:span 2}
-
-/* room cards (bedrooms/bath) */
-.rooms-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-.room-card{position:relative;overflow:hidden;aspect-ratio:4/3;cursor:pointer;border-radius:2px}
-.room-card.big{grid-column:span 2;aspect-ratio:21/9}
-.room-card img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s ease}
-.room-card:hover img{transform:scale(1.07)}
-.room-card .r-label{
-  position:absolute;bottom:0;left:0;right:0;padding:24px;z-index:2;
-  background:linear-gradient(0deg,rgba(15,58,71,.78),transparent);color:var(--cream);
+.slide{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  opacity:0;visibility:hidden;transition:opacity .7s ease;cursor:zoom-in;
 }
-.room-card .r-label h4{font-family:var(--serif);font-weight:400;font-size:1.4rem}
-.room-card .r-label p{font-family:var(--display);font-weight:300;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-top:4px}
+.slide.active{opacity:1;visibility:visible}
+.slide img{
+  max-width:100%;max-height:100%;width:auto;height:auto;
+  object-fit:contain;display:block;
+}
+.slide .scap{
+  position:absolute;left:0;right:0;bottom:0;padding:46px 28px 20px;z-index:3;
+  background:linear-gradient(0deg,rgba(8,28,35,.82),transparent);
+  color:var(--cream);font-family:var(--display);font-weight:300;
+  letter-spacing:.14em;text-transform:uppercase;font-size:.72rem;text-align:center;
+  pointer-events:none;
+}
+.slide-arrow{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:5;
+  width:54px;height:54px;border-radius:50%;cursor:pointer;
+  background:rgba(246,241,230,.92);color:var(--teal-deep);border:none;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .35s ease;box-shadow:0 8px 24px rgba(8,28,35,.3);
+}
+.slide-arrow:hover{background:var(--gold);color:var(--teal-deep);transform:translateY(-50%) scale(1.07)}
+.slide-prev{left:18px}.slide-next{right:18px}
+.slide-zoom-hint{
+  position:absolute;top:18px;right:18px;z-index:5;
+  width:42px;height:42px;border-radius:50%;
+  background:rgba(8,28,35,.5);color:var(--cream);
+  display:flex;align-items:center;justify-content:center;
+  pointer-events:none;opacity:.85;
+}
+/* thumbnails */
+.slider-thumbs{
+  display:flex;gap:10px;margin-top:16px;overflow-x:auto;padding-bottom:6px;
+  scrollbar-width:thin;scrollbar-color:var(--teal) transparent;
+}
+.slider-thumbs::-webkit-scrollbar{height:6px}
+.slider-thumbs::-webkit-scrollbar-thumb{background:var(--teal);border-radius:3px}
+.thumb{
+  flex:0 0 auto;width:96px;height:68px;border-radius:4px;overflow:hidden;
+  cursor:pointer;opacity:.5;transition:opacity .35s ease,transform .35s ease;
+  border:2px solid transparent;
+}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.thumb.active{opacity:1;border-color:var(--gold)}
+.thumb:hover{opacity:.85}
+.slider-dots{display:flex;gap:7px;justify-content:center;margin-top:16px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--sage);cursor:pointer;transition:all .3s ease;border:none;padding:0}
+.dot.active{background:var(--teal-deep);width:22px;border-radius:4px}
 
 /* ============ VIEW / QUOTE BREAK ============ */
 .viewbreak{
@@ -589,12 +586,10 @@ footer{background:#16424f;color:var(--cream);padding:80px 0 0}
 @media(max-width:768px){
   nav.desktop{display:none}
   .burger{display:flex}
-  .g-out,.g-in{grid-template-columns:1fr 1fr!important;grid-auto-rows:160px!important}
-  .s-tall,.s-wide,.s-sq,.s-sm,.s-half,.s-6-2,.i-a,.i-b,.i-c,.i-d,.i-e,.i-f,.i-g,.i-h{grid-column:span 1!important;grid-row:span 1!important}
-  .s-tall,.i-a,.i-g{grid-column:span 2!important;grid-row:span 1!important}
-  .gal-pair{grid-template-columns:1fr}
-  .rooms-grid{grid-template-columns:1fr}
-  .room-card.big{grid-column:span 1;aspect-ratio:4/3}
+  .slider-stage{height:clamp(300px,46vh,440px)}
+  .slide-arrow{width:44px;height:44px}
+  .slide-prev{left:10px}.slide-next{right:10px}
+  .thumb{width:74px;height:54px}
   .dist-list{grid-template-columns:1fr}
   .amen-cols{grid-template-columns:1fr}
   .feat-grid{grid-template-columns:1fr}
@@ -615,17 +610,8 @@ footer{background:#16424f;color:var(--cream);padding:80px 0 0}
 
 <!-- PRELOADER -->
 <div id="preloader">
-  <div class="pre-window">
-    <svg viewBox="0 0 90 108">
-      <path class="pre-arch" d="M12,40 Q12,6 45,6 Q78,6 78,40 L78,98 L12,98 Z"/>
-      <g class="pre-fill">
-        <path d="M20,46 h50 v8 h-50 z" fill="var(--teal-soft)"/>
-        <path d="M20,62 Q35,52 50,60 Q62,66 70,62 v18 h-50 z" fill="var(--ochre)"/>
-        <path d="M20,82 h50 v6 h-50 z" fill="var(--gold)"/>
-      </g>
-    </svg>
-  </div>
-  <div class="pre-text">Thetida's Villa</div>
+  <img class="pre-logo" src="https://github.com/agelmet/THETIDA/blob/main/ogooss.jpg?raw=true" alt="Thetida's Villa">
+  <div class="pre-line"></div>
 </div>
 
 <div class="progress" id="progress"></div>
@@ -633,15 +619,7 @@ footer{background:#16424f;color:var(--cream);padding:80px 0 0}
 <!-- HEADER -->
 <header id="header">
   <a href="#top" class="brand">
-    <span class="brand-mark">
-      <svg viewBox="0 0 90 108" xmlns="http://www.w3.org/2000/svg">
-        <path class="brand-stroke" d="M12,40 Q12,6 45,6 Q78,6 78,40 L78,98 L12,98 Z" fill="none" stroke="var(--teal)" stroke-width="3.5"/>
-        <path d="M19,45 h52 v7 h-52 z" fill="var(--teal-soft)"/>
-        <path d="M19,60 Q34,50 50,58 Q63,65 71,60 v20 h-52 z" fill="var(--ochre)"/>
-        <path d="M19,84 h52 v6 h-52 z" fill="var(--gold)"/>
-      </svg>
-    </span>
-    <span class="brand-name">Thetida's Villa<span class="brand-sub" data-el="πανοραμική θέα χωριού" data-en="panoramic village view">πανοραμική θέα χωριού</span></span>
+    <img class="brand-logo" src="https://github.com/agelmet/THETIDA/blob/main/ogooss.jpg?raw=true" alt="Thetida's Villa — panoramic village view, Apéri Karpathos">
   </a>
   <nav class="desktop">
     <a href="#about" data-el="Η Βίλα" data-en="The Villa">Η Βίλα</a>
@@ -792,83 +770,21 @@ footer{background:#16424f;color:var(--cream);padding:80px 0 0}
 <section class="viewbreak">
   <div class="viewbreak-bg" style="background-image:url('https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/unnamed-156.jpg')"></div>
   <div class="viewbreak-content reveal">
-    <p class="q" data-el="«Σιγά τον καφέ σου στη σκιά, νιώσε το ζεστό αεράκι του νησιού, βυθίσου στο <span class='hl'>ιδιωτικό τζακούζι κάτω από τα αστέρια.»</span>" data-en="“Sip your morning coffee in the shade, feel the warm island breeze, sink into the <span class='hl'>private jacuzzi under the stars.”</span>">«Σιγά τον καφέ σου στη σκιά, νιώσε το ζεστό αεράκι του νησιού, βυθίσου στο <span class="hl">ιδιωτικό τζακούζι κάτω από τα αστέρια.»</span></p>
+    <p class="q" data-el="Απολαύστε τον πρωινό σας καφέ στη σκιά, νιώστε το ζεστό αεράκι του νησιού και χαλαρώστε στο <span class='hl'>ιδιωτικό τζακούζι κάτω από τα αστέρια.</span>" data-en="Enjoy your morning coffee in the shade, feel the warm island breeze and unwind in the <span class='hl'>private jacuzzi under the stars.</span>">Απολαύστε τον πρωινό σας καφέ στη σκιά, νιώστε το ζεστό αεράκι του νησιού και χαλαρώστε στο <span class="hl">ιδιωτικό τζακούζι κάτω από τα αστέρια.</span></p>
     <p class="attr" data-el="— Thetida's Villa, Απέρι" data-en="— Thetida's Villa, Apéri">— Thetida's Villa, Απέρι</p>
   </div>
 </section>
 
-<!-- SPACES -->
+<!-- SPACES (sliders, JS-populated) -->
 <section class="gallery-sec sec-pad" id="spaces">
   <div class="wrap">
     <div class="gal-head">
       <p class="eyebrow center reveal" data-el="Οι χώροι" data-en="The spaces">Οι χώροι</p>
-      <h2 class="sec-title reveal d1" data-el="Εξερευνήστε κάθε <em>γωνιά</em>" data-en="Explore every <em>corner</em>">Εξερευνήστε κάθε <em>γωνιά</em></h2>
-      <p class="lead center reveal d2" data-el="Από την πετρόστρωτη αυλή μέχρι τα φωτεινά υπνοδωμάτια — κάθε χώρος της βίλας λέει τη δική του ιστορία. Κάντε κλικ σε κάθε εικόνα για να τη δείτε σε πλήρες μέγεθος." data-en="From the stone courtyard to the sunlit bedrooms — every space tells its own story. Click any image to view it full size.">Από την πετρόστρωτη αυλή μέχρι τα φωτεινά υπνοδωμάτια — κάθε χώρος της βίλας λέει τη δική του ιστορία. Κάντε κλικ σε κάθε εικόνα για να τη δείτε σε πλήρες μέγεθος.</p>
+      <h2 class="sec-title reveal d1" data-el="Γνωρίστε κάθε <em>γωνιά</em>" data-en="Discover every <em>corner</em>">Γνωρίστε κάθε <em>γωνιά</em></h2>
+      <p class="lead center reveal d2" data-el="Από την πετρόστρωτη αυλή έως τα φωτεινά υπνοδωμάτια. Σύρετε ή πατήστε τα βέλη για να δείτε κάθε χώρο, και κάντε κλικ σε μια φωτογραφία για να ανοίξει σε πλήρη οθόνη." data-en="From the stone courtyard to the sunlit bedrooms. Swipe or use the arrows to browse each space, and click any photo to open it full screen.">Από την πετρόστρωτη αυλή έως τα φωτεινά υπνοδωμάτια. Σύρετε ή πατήστε τα βέλη για να δείτε κάθε χώρο, και κάντε κλικ σε μια φωτογραφία για να ανοίξει σε πλήρη οθόνη.</p>
     </div>
-
-    <!-- OUTSIDE -->
-    <p class="eyebrow reveal" style="margin-bottom:24px" data-el="Εξωτερικοί χώροι & Αυλή" data-en="Outdoor Spaces & Courtyard">Εξωτερικοί χώροι & Αυλή</p>
-    <div class="gal-grid g-out reveal">
-      <div class="gal-item s-wide" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/unnamed-144.jpg" alt="Terrace at sunset"><span class="cap" data-el="Η βεράντα στο ηλιοβασίλεμα" data-en="The terrace at sunset">Η βεράντα στο ηλιοβασίλεμα</span><span class="zoom">+</span></div>
-      <div class="gal-item s-tall" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/unnamed-157.jpg" alt="Courtyard"><span class="cap" data-el="Η πέτρινη αυλή" data-en="The stone courtyard">Η πέτρινη αυλή</span><span class="zoom">+</span></div>
-      <div class="gal-item s-sm" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/unnamed-158.jpg" alt="Outdoor seating"><span class="zoom">+</span></div>
-      <div class="gal-item s-sm" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/663082525.jpg" alt="Garden corner"><span class="zoom">+</span></div>
-      <div class="gal-item s-sm" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/663082529.jpg" alt="Courtyard view"><span class="zoom">+</span></div>
-      <div class="gal-item s-half" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/663082551.jpg" alt="Outdoor dining"><span class="cap" data-el="Γεύματα στο ύπαιθρο" data-en="Dining outdoors">Γεύματα στο ύπαιθρο</span><span class="zoom">+</span></div>
-      <div class="gal-item s-half" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/663082561.jpg" alt="Terrace"><span class="zoom">+</span></div>
-      <div class="gal-item s-sm" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689845566.jpg" alt="Outside view"><span class="zoom">+</span></div>
-      <div class="gal-item s-sm" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/unnamed-145.jpg" alt="Courtyard detail"><span class="zoom">+</span></div>
-      <div class="gal-item s-sm" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/unnamed-156.jpg" alt="Village panorama"><span class="cap" data-el="Θέα στο Απέρι" data-en="View over Aperi">Θέα στο Απέρι</span><span class="zoom">+</span></div>
-    </div>
-
-    <!-- big pair -->
-    <div class="gal-pair reveal" style="margin-top:14px">
-      <div class="gal-item" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/663082564.jpg" alt="Panoramic terrace"><span class="cap" data-el="Η μεγάλη βεράντα" data-en="The grand terrace">Η μεγάλη βεράντα</span><span class="zoom">+</span></div>
-      <div class="gal-item" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/unnamed-155.jpg" alt="Outdoor relaxation"><span class="cap" data-el="Γωνιά χαλάρωσης" data-en="A corner to unwind">Γωνιά χαλάρωσης</span><span class="zoom">+</span></div>
-    </div>
-
-    <!-- more outside grid -->
-    <div class="gal-grid g-out reveal" style="margin-top:14px">
-      <div class="gal-item s-sm" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846387.jpg" alt="Outdoor space"><span class="zoom">+</span></div>
-      <div class="gal-item s-sm" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846414.jpg" alt="Outdoor space"><span class="zoom">+</span></div>
-      <div class="gal-item s-sm" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846455.jpg" alt="Outdoor space"><span class="zoom">+</span></div>
-      <div class="gal-item s-half" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846503.jpg" alt="Outdoor terrace"><span class="zoom">+</span></div>
-      <div class="gal-item s-half" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846529.jpg" alt="Outdoor terrace"><span class="zoom">+</span></div>
-      <div class="gal-item s-sm" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846584.jpg" alt="Garden"><span class="zoom">+</span></div>
-      <div class="gal-item s-sm" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846597.jpg" alt="Garden"><span class="zoom">+</span></div>
-      <div class="gal-item s-sm" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846804.jpg" alt="Outdoor"><span class="zoom">+</span></div>
-      <div class="gal-item s-sm" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846848.jpg" alt="Outdoor"><span class="zoom">+</span></div>
-      <div class="gal-item s-sm" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/690439447.jpg" alt="Outdoor"><span class="zoom">+</span></div>
-      <div class="gal-item s-sm" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/690439450.jpg" alt="Outdoor"><span class="zoom">+</span></div>
-      <div class="gal-item s-sm" data-cat="outside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/690439452.jpg" alt="Outdoor"><span class="zoom">+</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- INTERIOR -->
-<section class="gallery-sec alt sec-pad">
-  <div class="wrap">
-    <p class="eyebrow reveal" style="margin-bottom:24px" data-el="Εσωτερικοί χώροι & Σαλόνι" data-en="Interior & Living Areas">Εσωτερικοί χώροι & Σαλόνι</p>
-    <div class="gal-grid g-in reveal">
-      <div class="gal-item i-a" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/unnamed-148.jpg" alt="Living room"><span class="cap" data-el="Το φωτεινό σαλόνι" data-en="The bright living room">Το φωτεινό σαλόνι</span><span class="zoom">+</span></div>
-      <div class="gal-item i-b" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/663082531.jpg" alt="Living area"><span class="zoom">+</span></div>
-      <div class="gal-item i-c" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/663082532.jpg" alt="Living detail"><span class="zoom">+</span></div>
-      <div class="gal-item i-d" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/unnamed-149.jpg" alt="Interior"><span class="zoom">+</span></div>
-      <div class="gal-item i-e" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/663082534.jpg" alt="Kitchen"><span class="cap" data-el="Η κουζίνα" data-en="The kitchen">Η κουζίνα</span><span class="zoom">+</span></div>
-      <div class="gal-item i-f" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/663082541.jpg" alt="Dining"><span class="zoom">+</span></div>
-      <div class="gal-item i-g" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/unnamed-152.jpg" alt="Open loft"><span class="cap" data-el="Το παραδοσιακό πατάρι" data-en="The traditional loft">Το παραδοσιακό πατάρι</span><span class="zoom">+</span></div>
-      <div class="gal-item i-h" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/unnamed-153.jpg" alt="Interior detail"><span class="zoom">+</span></div>
-      <div class="gal-item i-d" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/663082544.jpg" alt="Living space"><span class="zoom">+</span></div>
-      <div class="gal-item i-e" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689845225.jpg" alt="Interior"><span class="zoom">+</span></div>
-      <div class="gal-item i-f" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689845298.jpg" alt="Interior"><span class="zoom">+</span></div>
-      <div class="gal-item i-g" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/unnamed-154.jpg" alt="Interior"><span class="zoom">+</span></div>
-      <div class="gal-item i-h" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689845352.jpg" alt="Interior"><span class="zoom">+</span></div>
-      <div class="gal-item i-e" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/710535546.jpg" alt="Interior"><span class="zoom">+</span></div>
-      <div class="gal-item i-f" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689845825.jpg" alt="Interior"><span class="zoom">+</span></div>
-      <div class="gal-item i-d" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846009.jpg" alt="Interior"><span class="zoom">+</span></div>
-      <div class="gal-item i-e" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846762.jpg" alt="Interior"><span class="zoom">+</span></div>
-      <div class="gal-item i-f" data-cat="inside"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689875041.jpg" alt="Interior"><span class="zoom">+</span></div>
-    </div>
+    <div class="slider-block reveal" data-slider="outside"></div>
+    <div class="slider-block reveal" data-slider="inside"></div>
   </div>
 </section>
 
@@ -876,43 +792,19 @@ footer{background:#16424f;color:var(--cream);padding:80px 0 0}
 <section class="viewbreak">
   <div class="viewbreak-bg" style="background-image:url('https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846597.jpg')"></div>
   <div class="viewbreak-content reveal">
-    <p class="q" data-el="Ένα σπίτι μέσα σε ένα <span class='hl'>θύλακα του χρόνου</span> — όπου η αυθεντική αρχιτεκτονική συναντά τη σύγχρονη άνεση." data-en="A home inside a <span class='hl'>pocket of time</span> — where authentic architecture meets modern comfort.">Ένα σπίτι μέσα σε ένα <span class="hl">θύλακα του χρόνου</span> — όπου η αυθεντική αρχιτεκτονική συναντά τη σύγχρονη άνεση.</p>
+    <p class="q" data-el="Ένα σπίτι που μοιάζει σταματημένο στον χρόνο, εκεί όπου η <span class='hl'>παραδοσιακή αρχιτεκτονική</span> συναντά τις σύγχρονες ανέσεις." data-en="A home that feels paused in time, where <span class='hl'>traditional architecture</span> meets modern comfort.">Ένα σπίτι που μοιάζει σταματημένο στον χρόνο, εκεί όπου η <span class="hl">παραδοσιακή αρχιτεκτονική</span> συναντά τις σύγχρονες ανέσεις.</p>
   </div>
 </section>
 
-<!-- BEDROOMS & BATHROOMS -->
-<section class="gallery-sec sec-pad">
+<!-- BEDROOMS / BATHROOMS / PARKING (sliders) -->
+<section class="gallery-sec alt sec-pad">
   <div class="wrap">
-    <p class="eyebrow reveal" style="margin-bottom:24px" data-el="Υπνοδωμάτια" data-en="Bedrooms">Υπνοδωμάτια</p>
-    <div class="rooms-grid reveal" style="margin-bottom:50px">
-      <div class="room-card big" data-cat="bed"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/unnamed-146.jpg" alt="Master bedroom"><div class="r-label"><h4 data-el="Κύριο Υπνοδωμάτιο" data-en="Master Bedroom">Κύριο Υπνοδωμάτιο</h4><p data-el="Με θέα στο βουνό" data-en="With mountain views">Με θέα στο βουνό</p></div></div>
-      <div class="room-card" data-cat="bed"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/unnamed-147.jpg" alt="Bedroom"><div class="r-label"><h4 data-el="Δεύτερο Υπνοδωμάτιο" data-en="Second Bedroom">Δεύτερο Υπνοδωμάτιο</h4></div></div>
-      <div class="room-card" data-cat="bed"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/unnamed-150.jpg" alt="Bedroom"><div class="r-label"><h4 data-el="Άνετος Ύπνος" data-en="Restful Sleep">Άνετος Ύπνος</h4></div></div>
-    </div>
-    <div class="gal-grid g-in reveal">
-      <div class="gal-item i-g" data-cat="bed"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/unnamed-151.jpg" alt="Bedroom detail"><span class="zoom">+</span></div>
-      <div class="gal-item i-h" data-cat="bed"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/663082565.jpg" alt="Bedroom"><span class="zoom">+</span></div>
-      <div class="gal-item i-e" data-cat="bed"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846057.jpg" alt="Bedroom"><span class="zoom">+</span></div>
-      <div class="gal-item i-f" data-cat="bed"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846101.jpg" alt="Bedroom"><span class="zoom">+</span></div>
-      <div class="gal-item i-d" data-cat="bed"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846136.jpg" alt="Bedroom"><span class="zoom">+</span></div>
-      <div class="gal-item i-e" data-cat="bed"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846189.jpg" alt="Bedroom"><span class="zoom">+</span></div>
-      <div class="gal-item i-f" data-cat="bed"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689874985.jpg" alt="Bedroom"><span class="zoom">+</span></div>
-      <div class="gal-item i-g" data-cat="bed"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689875005.jpg" alt="Bedroom"><span class="zoom">+</span></div>
-    </div>
-
-    <p class="eyebrow reveal" style="margin:60px 0 24px" data-el="Μπάνια" data-en="Bathrooms">Μπάνια</p>
-    <div class="gal-grid g-in reveal">
-      <div class="gal-item i-g" data-cat="bath"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846219.jpg" alt="Bathroom"><span class="cap" data-el="Με μπανιέρα & υδρομασάζ" data-en="With bathtub & jacuzzi">Με μπανιέρα & υδρομασάζ</span><span class="zoom">+</span></div>
-      <div class="gal-item i-e" data-cat="bath"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689875068.jpg" alt="Bathroom"><span class="zoom">+</span></div>
-      <div class="gal-item i-e" data-cat="bath"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689875095.jpg" alt="Bathroom"><span class="zoom">+</span></div>
-    </div>
-
-    <p class="eyebrow reveal" style="margin:60px 0 24px" data-el="Χώρος στάθμευσης" data-en="Parking">Χώρος στάθμευσης</p>
-    <div class="gal-pair reveal">
-      <div class="gal-item" data-cat="park" style="grid-column:span 2"><img class="zoomable" src="https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/689846883.jpg" alt="Private parking"><span class="cap" data-el="Ιδιωτικός χώρος στάθμευσης στον χώρο" data-en="Private parking on the property">Ιδιωτικός χώρος στάθμευσης στον χώρο</span><span class="zoom">+</span></div>
-    </div>
+    <div class="slider-block reveal" data-slider="bed"></div>
+    <div class="slider-block reveal" data-slider="bath"></div>
+    <div class="slider-block reveal" data-slider="park"></div>
   </div>
 </section>
+
 
 <!-- AMENITIES -->
 <section class="amen sec-pad">
@@ -1021,8 +913,12 @@ footer{background:#16424f;color:var(--cream);padding:80px 0 0}
       <p class="reveal d2" data-el="Περιβαλλόμενη από τη φύση και μόλις λίγα λεπτά από μία από τις πιο εντυπωσιακές παραλίες της Καρπάθου, η Thetida's Villa είναι η τέλεια απόδραση για όσους αναζητούν αυθεντικότητα και ηρεμία." data-en="Surrounded by nature and just minutes from one of Karpathos' most stunning beaches, Thetida's Villa is the perfect escape for those seeking authenticity and tranquility.">Περιβαλλόμενη από τη φύση και μόλις λίγα λεπτά από μία από τις πιο εντυπωσιακές παραλίες της Καρπάθου, η Thetida's Villa είναι η τέλεια απόδραση για όσους αναζητούν αυθεντικότητα και ηρεμία.</p>
       <span class="book-stay reveal d2" data-el="Ελάχιστη διαμονή 6 νύχτες 🙏" data-en="Minimum stay 6 nights 🙏">Ελάχιστη διαμονή 6 νύχτες 🙏</span>
       <div class="book-actions reveal d3">
-        <a class="btn-gold" href="tel:+306974643679">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.81.36 1.6.7 2.34a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.74-1.27a2 2 0 0 1 2.11-.45c.74.34 1.53.57 2.34.7A2 2 0 0 1 22 16.92z"/></svg>
+        <a class="btn-gold" href="https://www.google.com/travel/search?ts=CAESCgoCCAMKAggDEAAaUAoyEi4yJTB4MTQ5NmE5ZDY3MDY1ZmJjZDoweDZlZDdiZDgxYmRjNGM3Mzg6BUFwZXJpGgASGhIUCgcI6g8QBxgHEgcI6g8QBxgRGAoyAggBKgkKBToDRVVSGgA&qs=CAEyJ0Noa0lrYXZIaDZLYWw2elRBUm9NTDJjdk1YRTFZbTFqTW1wNkVBRTgNSAA&utm_campaign=sharing&utm_medium=link_btn&utm_source=htls" target="_blank" rel="noopener">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M8 2v3M16 2v3M3.5 8h17M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zM9 13l2 2 4-4"/></svg>
+          <span data-el="Δείτε διαθεσιμότητα" data-en="Check availability">Δείτε διαθεσιμότητα</span>
+        </a>
+        <a class="btn-out" href="tel:+306974643679">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.81.36 1.6.7 2.34a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.74-1.27a2 2 0 0 1 2.11-.45c.74.34 1.53.57 2.34.7A2 2 0 0 1 22 16.92z"/></svg>
           <span data-el="Καλέστε μας" data-en="Call us">Καλέστε μας</span>
         </a>
         <a class="btn-out" href="mailto:villathetiskarpathos@gmail.com">
@@ -1039,17 +935,8 @@ footer{background:#16424f;color:var(--cream);padding:80px 0 0}
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <span class="brand-mark" style="width:46px;height:56px;display:inline-block">
-          <svg viewBox="0 0 90 108" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12,40 Q12,6 45,6 Q78,6 78,40 L78,98 L12,98 Z" fill="none" stroke="var(--gold)" stroke-width="3.5"/>
-            <path d="M19,45 h52 v7 h-52 z" fill="var(--teal-soft)"/>
-            <path d="M19,60 Q34,50 50,58 Q63,65 71,60 v20 h-52 z" fill="var(--ochre)"/>
-            <path d="M19,84 h52 v6 h-52 z" fill="var(--gold)"/>
-          </svg>
-        </span>
-        <div class="fb-name">Thetida's Villa</div>
-        <div class="fb-sub" data-el="πανοραμική θέα χωριού" data-en="panoramic village view">πανοραμική θέα χωριού</div>
-        <p data-el="Μια αυθεντική Καρπάθικη βίλα στο αμφιθεατρικό Απέρι, όπου το χωριό συναντά τον ορίζοντα." data-en="An authentic Karpathian villa in amphitheatric Aperi, where the village meets the horizon.">Μια αυθεντική Καρπάθικη βίλα στο αμφιθεατρικό Απέρι, όπου το χωριό συναντά τον ορίζοντα.</p>
+        <img src="https://github.com/agelmet/THETIDA/blob/main/ogooss.jpg?raw=true" alt="Thetida's Villa" style="width:200px;max-width:70%;height:auto;background:var(--cream);padding:14px 18px;border-radius:10px;display:block">
+        <p style="margin-top:22px" data-el="Μια αυθεντική καρπάθικη βίλα στο αμφιθεατρικό Απέρι, εκεί όπου το χωριό συναντά τον ορίζοντα." data-en="An authentic Karpathian villa in amphitheatric Aperi, where the village meets the horizon.">Μια αυθεντική καρπάθικη βίλα στο αμφιθεατρικό Απέρι, εκεί όπου το χωριό συναντά τον ορίζοντα.</p>
       </div>
       <div class="foot-col">
         <h5 data-el="Πλοήγηση" data-en="Explore">Πλοήγηση</h5>
@@ -1192,36 +1079,176 @@ function buildReviews(){
 }
 buildReviews();
 
-/* ===== LIGHTBOX (gallery) ===== */
-const zoomables=Array.from(document.querySelectorAll('.zoomable'));
+/* ===== GALLERY DATA (per category) ===== */
+const RAW1='https://raw.githubusercontent.com/agelmet/THETIDA/e260c685bd78c0f77358b64a2007d1a9cdafba2e/';
+const RAW2='https://raw.githubusercontent.com/agelmet/THETIDA/e8c20ce3990fd836e726312e0391583c9b198d1e/';
+const galleries={
+  outside:{
+    el:'Εξωτερικοί χώροι & Αυλή', en:'Outdoor Spaces & Courtyard',
+    imgs:[
+      {s:RAW1+'unnamed-144.jpg', el:'Η βεράντα στο ηλιοβασίλεμα', en:'The terrace at sunset'},
+      {s:RAW1+'unnamed-157.jpg', el:'Η πέτρινη αυλή', en:'The stone courtyard'},
+      {s:RAW1+'unnamed-158.jpg', el:'Καθιστικό στην αυλή', en:'Courtyard seating'},
+      {s:RAW2+'663082525.jpg', el:'Γωνιά του κήπου', en:'A corner of the garden'},
+      {s:RAW2+'663082529.jpg', el:'Θέα από την αυλή', en:'View from the courtyard'},
+      {s:RAW2+'663082551.jpg', el:'Γεύμα σε υπαίθριο χώρο', en:'Dining outdoors'},
+      {s:RAW2+'663082561.jpg', el:'Η βεράντα', en:'The terrace'},
+      {s:RAW2+'663082564.jpg', el:'Η μεγάλη βεράντα', en:'The grand terrace'},
+      {s:RAW1+'unnamed-155.jpg', el:'Γωνιά χαλάρωσης', en:'A corner to unwind'},
+      {s:RAW2+'689845566.jpg', el:'Εξωτερικός χώρος', en:'Outdoor space'},
+      {s:RAW1+'unnamed-145.jpg', el:'Λεπτομέρεια της αυλής', en:'Courtyard detail'},
+      {s:RAW1+'unnamed-156.jpg', el:'Θέα προς το Απέρι', en:'View towards Aperi'},
+      {s:RAW2+'689846387.jpg', el:'Στην αυλή', en:'In the courtyard'},
+      {s:RAW2+'689846414.jpg', el:'Εξωτερικός χώρος', en:'Outdoor area'},
+      {s:RAW2+'689846455.jpg', el:'Εξωτερικός χώρος', en:'Outdoor area'},
+      {s:RAW2+'689846503.jpg', el:'Η βεράντα', en:'The terrace'},
+      {s:RAW2+'689846529.jpg', el:'Η βεράντα', en:'The terrace'},
+      {s:RAW2+'689846584.jpg', el:'Ο κήπος', en:'The garden'},
+      {s:RAW2+'689846597.jpg', el:'Ο κήπος', en:'The garden'},
+      {s:RAW2+'689846804.jpg', el:'Εξωτερικός χώρος', en:'Outdoor area'},
+      {s:RAW2+'689846848.jpg', el:'Εξωτερικός χώρος', en:'Outdoor area'},
+      {s:RAW2+'690439447.jpg', el:'Εξωτερικός χώρος', en:'Outdoor area'},
+      {s:RAW2+'690439450.jpg', el:'Εξωτερικός χώρος', en:'Outdoor area'},
+      {s:RAW2+'690439452.jpg', el:'Εξωτερικός χώρος', en:'Outdoor area'}
+    ]
+  },
+  inside:{
+    el:'Εσωτερικοί χώροι & Σαλόνι', en:'Interior & Living Areas',
+    imgs:[
+      {s:RAW1+'unnamed-148.jpg', el:'Το φωτεινό σαλόνι', en:'The bright living room'},
+      {s:RAW2+'663082531.jpg', el:'Ο χώρος καθιστικού', en:'The living area'},
+      {s:RAW2+'663082532.jpg', el:'Λεπτομέρεια του σαλονιού', en:'Living room detail'},
+      {s:RAW1+'unnamed-149.jpg', el:'Εσωτερικός χώρος', en:'Interior'},
+      {s:RAW2+'663082534.jpg', el:'Η κουζίνα', en:'The kitchen'},
+      {s:RAW2+'663082541.jpg', el:'Ο χώρος φαγητού', en:'The dining area'},
+      {s:RAW1+'unnamed-152.jpg', el:'Το παραδοσιακό πατάρι', en:'The traditional loft'},
+      {s:RAW1+'unnamed-153.jpg', el:'Εσωτερική λεπτομέρεια', en:'Interior detail'},
+      {s:RAW2+'663082544.jpg', el:'Ο χώρος καθιστικού', en:'The living space'},
+      {s:RAW2+'689845225.jpg', el:'Εσωτερικός χώρος', en:'Interior'},
+      {s:RAW2+'689845298.jpg', el:'Εσωτερικός χώρος', en:'Interior'},
+      {s:RAW1+'unnamed-154.jpg', el:'Εσωτερικός χώρος', en:'Interior'},
+      {s:RAW2+'689845352.jpg', el:'Εσωτερικός χώρος', en:'Interior'},
+      {s:RAW2+'710535546.jpg', el:'Εσωτερικός χώρος', en:'Interior'},
+      {s:RAW2+'689845825.jpg', el:'Εσωτερικός χώρος', en:'Interior'},
+      {s:RAW2+'689846009.jpg', el:'Εσωτερικός χώρος', en:'Interior'},
+      {s:RAW2+'689846762.jpg', el:'Εσωτερικός χώρος', en:'Interior'},
+      {s:RAW2+'689875041.jpg', el:'Εσωτερικός χώρος', en:'Interior'}
+    ]
+  },
+  bed:{
+    el:'Υπνοδωμάτια', en:'Bedrooms',
+    imgs:[
+      {s:RAW1+'unnamed-146.jpg', el:'Κύριο υπνοδωμάτιο', en:'Master bedroom'},
+      {s:RAW1+'unnamed-147.jpg', el:'Δεύτερο υπνοδωμάτιο', en:'Second bedroom'},
+      {s:RAW1+'unnamed-150.jpg', el:'Υπνοδωμάτιο', en:'Bedroom'},
+      {s:RAW1+'unnamed-151.jpg', el:'Λεπτομέρεια υπνοδωματίου', en:'Bedroom detail'},
+      {s:RAW2+'663082565.jpg', el:'Υπνοδωμάτιο', en:'Bedroom'},
+      {s:RAW2+'689846057.jpg', el:'Υπνοδωμάτιο', en:'Bedroom'},
+      {s:RAW2+'689846101.jpg', el:'Υπνοδωμάτιο', en:'Bedroom'},
+      {s:RAW2+'689846136.jpg', el:'Υπνοδωμάτιο', en:'Bedroom'},
+      {s:RAW2+'689846189.jpg', el:'Υπνοδωμάτιο', en:'Bedroom'},
+      {s:RAW2+'689874985.jpg', el:'Υπνοδωμάτιο', en:'Bedroom'},
+      {s:RAW2+'689875005.jpg', el:'Υπνοδωμάτιο', en:'Bedroom'}
+    ]
+  },
+  bath:{
+    el:'Μπάνια', en:'Bathrooms',
+    imgs:[
+      {s:RAW2+'689846219.jpg', el:'Μπάνιο με μπανιέρα & υδρομασάζ', en:'Bathroom with bathtub & jacuzzi'},
+      {s:RAW2+'689875068.jpg', el:'Το μπάνιο', en:'The bathroom'},
+      {s:RAW2+'689875095.jpg', el:'Το μπάνιο', en:'The bathroom'}
+    ]
+  },
+  park:{
+    el:'Χώρος στάθμευσης', en:'Parking',
+    imgs:[
+      {s:RAW2+'689846883.jpg', el:'Ιδιωτικός χώρος στάθμευσης', en:'Private on-site parking'}
+    ]
+  }
+};
+
+/* ===== LIGHTBOX (fullscreen, per-category) ===== */
 const lb=document.getElementById('lightbox');
 const lbImg=document.getElementById('lbImg');
 const lbCounter=document.getElementById('lbCounter');
-let curIdx=0;
-function openLb(i){
-  curIdx=i;
-  lbImg.src=zoomables[i].src;
-  lbImg.alt=zoomables[i].alt||'';
-  lbCounter.textContent=(i+1)+' / '+zoomables.length;
+let lbCat=null, lbIdx=0;
+const introImg=document.querySelector('.intro-frame img');
+function lbList(){return lbCat==='_intro'?[{s:introImg.src}]:galleries[lbCat].imgs;}
+function openLb(cat,i){
+  lbCat=cat; const list=lbList(); lbIdx=(i+list.length)%list.length;
+  lbImg.src=list[lbIdx].s;
+  lbImg.alt=(list[lbIdx][lang]||list[lbIdx].el||'');
+  lbCounter.textContent=(lbIdx+1)+' / '+list.length;
   lb.classList.add('open');document.body.classList.add('no-scroll');
 }
 function closeLb(){lb.classList.remove('open');document.body.classList.remove('no-scroll')}
-function nav(d){curIdx=(curIdx+d+zoomables.length)%zoomables.length;openLb(curIdx)}
-zoomables.forEach((img,i)=>{img.addEventListener('click',()=>openLb(i))});
+function lbNav(d){const list=lbList();lbIdx=(lbIdx+d+list.length)%list.length;openLb(lbCat,lbIdx)}
+if(introImg){introImg.style.cursor='zoom-in';introImg.addEventListener('click',()=>openLb('_intro',0));}
 document.getElementById('lbClose').addEventListener('click',closeLb);
-document.getElementById('lbPrev').addEventListener('click',e=>{e.stopPropagation();nav(-1)});
-document.getElementById('lbNext').addEventListener('click',e=>{e.stopPropagation();nav(1)});
+document.getElementById('lbPrev').addEventListener('click',e=>{e.stopPropagation();lbNav(-1)});
+document.getElementById('lbNext').addEventListener('click',e=>{e.stopPropagation();lbNav(1)});
 lb.addEventListener('click',e=>{if(e.target===lb)closeLb()});
 document.addEventListener('keydown',e=>{
   if(!lb.classList.contains('open'))return;
   if(e.key==='Escape')closeLb();
-  if(e.key==='ArrowLeft')nav(-1);
-  if(e.key==='ArrowRight')nav(1);
+  if(e.key==='ArrowLeft')lbNav(-1);
+  if(e.key==='ArrowRight')lbNav(1);
 });
-// swipe
 let tx=0;
 lb.addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
-lb.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50)nav(dx>0?-1:1)},{passive:true});
+lb.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50)lbNav(dx>0?-1:1)},{passive:true});
+
+/* ===== BUILD SLIDERS ===== */
+function buildSlider(block){
+  const key=block.getAttribute('data-slider');
+  const g=galleries[key];
+  if(!g) return;
+  const slides=g.imgs.map((im,i)=>
+    `<div class="slide${i===0?' active':''}" data-i="${i}">
+       <img src="${im.s}" alt="${(lang==='el'?im.el:im.en)||''}" loading="lazy">
+       <span class="scap" data-el="${im.el||''}" data-en="${im.en||''}">${lang==='el'?(im.el||''):(im.en||'')}</span>
+     </div>`).join('');
+  const thumbs=g.imgs.map((im,i)=>
+    `<button class="thumb${i===0?' active':''}" data-i="${i}" aria-label="${i+1}"><img src="${im.s}" alt="" loading="lazy"></button>`).join('');
+  const multi=g.imgs.length>1;
+  block.innerHTML=
+    `<div class="slider-label">
+       <div class="sl-left"><p class="eyebrow" data-el="${g.el}" data-en="${g.en}">${lang==='el'?g.el:g.en}</p></div>
+       <span class="sl-count"><span class="sc-cur">1</span> / ${g.imgs.length}</span>
+     </div>
+     <div class="slider" data-key="${key}">
+       <div class="slider-stage">${slides}
+         <div class="slide-zoom-hint"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></div>
+         ${multi?`<button class="slide-arrow slide-prev" aria-label="Previous"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M15 18l-6-6 6-6"/></svg></button>
+         <button class="slide-arrow slide-next" aria-label="Next"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 18l6-6-6-6"/></svg></button>`:''}
+       </div>
+     </div>
+     ${multi?`<div class="slider-thumbs">${thumbs}</div>`:''}`;
+
+  const slider=block.querySelector('.slider');
+  const slideEls=Array.from(block.querySelectorAll('.slide'));
+  const thumbEls=Array.from(block.querySelectorAll('.thumb'));
+  const curEl=block.querySelector('.sc-cur');
+  let idx=0;
+  function go(n){
+    idx=(n+slideEls.length)%slideEls.length;
+    slideEls.forEach((s,i)=>s.classList.toggle('active',i===idx));
+    thumbEls.forEach((t,i)=>t.classList.toggle('active',i===idx));
+    if(curEl) curEl.textContent=idx+1;
+    const at=thumbEls[idx];
+    if(at&&at.scrollIntoView) at.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});
+  }
+  const prev=block.querySelector('.slide-prev');
+  const next=block.querySelector('.slide-next');
+  if(prev) prev.addEventListener('click',()=>go(idx-1));
+  if(next) next.addEventListener('click',()=>go(idx+1));
+  thumbEls.forEach((t,i)=>t.addEventListener('click',()=>go(i)));
+  slideEls.forEach((s,i)=>s.addEventListener('click',()=>openLb(key,i)));
+  let sx=0;
+  slider.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});
+  slider.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>45)go(dx>0?idx-1:idx+1)},{passive:true});
+}
+document.querySelectorAll('[data-slider]').forEach(buildSlider);
 
 /* ===== YEAR ===== */
 document.getElementById('year').textContent=new Date().getFullYear();
